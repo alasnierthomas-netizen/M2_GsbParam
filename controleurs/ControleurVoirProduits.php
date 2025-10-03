@@ -24,11 +24,17 @@ class ControleurVoirProduits{
 	 * si $categ contient un idCategorie affiche les produits d'une catégorie
 	 * @param $categ un identifiant de la catégorie de produits à afficher
 	*/
-    public function voirProduits($categ){
-		$lesProduits=$this->modeleFront->getLesProduitsDeCategorie($categ);
-        $lesCategories=$this->modeleFront->getLesCategories();
+    public function voirProduits($categ = null){
+        if($categ == null)
+        {
+            $lesProduits=$this->modeleFront->getLesProduits();
+        }
+        else{
+		    $lesProduits=$this->modeleFront->getLesProduitsDeCategorie($categ);
+            $lesCategories=$this->modeleFront->getLesCategories();
         
-        include("vues/v_choixCategorie.php");
+            include("vues/v_choixCategorie.php");
+        }
         include("vues/v_produits.php");
     }
 	/**
