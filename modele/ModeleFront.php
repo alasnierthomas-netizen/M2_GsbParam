@@ -112,6 +112,29 @@ class ModeleFront extends Modele{
         die();
 		}
 	}
+
+/**
+ * Retourne sous forme d'un tableau tous les produits
+ * 
+ * @return array $lesLignes un tableau des produits
+*/
+
+	public function getLesProduits()
+	{
+		try 
+		{
+	    $req='select id, description, prix, image from produit'.'"';
+		$res = $this->executerRequete($req);
+		$lesLignes = $res->fetchAll(PDO::FETCH_OBJ);
+		return $lesLignes; 
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+	}
+
 	/**
 	 * Crée une commande 
 	 *
