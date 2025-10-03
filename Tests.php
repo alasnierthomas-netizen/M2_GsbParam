@@ -1,4 +1,4 @@
-// test des méthodes de ModeleFront
+// test des méthodes de ModeleFrons
 <?php
 require_once("modele/ModeleFront.php");
 $modelFront = new ModeleFront();
