@@ -123,7 +123,7 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-	    $req='select id, description, prix, image from produit'.'"';
+	    $req='select id, description, prix, image from produit';
 		$res = $this->executerRequete($req);
 		$lesLignes = $res->fetchAll(PDO::FETCH_OBJ);
 		return $lesLignes; 

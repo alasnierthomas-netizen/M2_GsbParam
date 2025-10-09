@@ -32,9 +32,10 @@ class ControleurVoirProduits{
         else{
 		    $lesProduits=$this->modeleFront->getLesProduitsDeCategorie($categ);
             $lesCategories=$this->modeleFront->getLesCategories();
-        
-            include("vues/v_choixCategorie.php");
-        }
+            $lesInfoCateg=$this->modeleFront->getLesInfosCategorie($categ);
+            $message = 'Produits de la catégorie '.$lesInfoCateg->fetch() ; #TODO: changer sa 
+            }
+        include("vues/v_choixCategorie.php");
         include("vues/v_produits.php");
     }
 	/**
