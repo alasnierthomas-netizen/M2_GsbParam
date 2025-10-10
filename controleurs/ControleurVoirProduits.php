@@ -33,9 +33,9 @@ class ControleurVoirProduits{
 		    $lesProduits=$this->modeleFront->getLesProduitsDeCategorie($categ);
             $lesCategories=$this->modeleFront->getLesCategories();
             $lesInfoCateg=$this->modeleFront->getLesInfosCategorie($categ);
-            $message = 'Produits de la catégorie '.$lesInfoCateg->fetch() ; #TODO: changer sa 
-            }
-        include("vues/v_choixCategorie.php");
+            $message = 'Produits de la catégorie '.$lesInfoCateg->libelle ;
+            include("vues/v_choixCategorie.php");
+        }
         include("vues/v_produits.php");
     }
 	/**
