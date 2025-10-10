@@ -43,8 +43,8 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-        $req = 'SELECT id, libelle FROM categorie WHERE id="'.$idCategorie.'"';
-		$res = $this->executerRequete($req);
+        $req = 'SELECT id, libelle FROM categorie WHERE id=? ';
+		$res = $this->executerRequete($req, [$idCategorie]);
 		$laLigne = $res->fetch(PDO::FETCH_OBJ);
 		return $laLigne;
 		} 
@@ -66,8 +66,8 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-	    $req='select id, description, prix, image, idCategorie from produit where idCategorie ="'.$idCategorie.'"';
-		$res = $this->executerRequete($req);
+	    $req='select id, description, prix, image, idCategorie from produit where idCategorie =? ';
+		$res = $this->executerRequete($req, [$idCategorie]);
 		$lesLignes = $res->fetchAll(PDO::FETCH_OBJ);
 		return $lesLignes; 
 		} 
@@ -92,8 +92,8 @@ class ModeleFront extends Modele{
 		{
 			foreach($desIdsProduit as $unIdProduit)
 			{
-				$req = 'select id, description, prix, image, idCategorie from produit where id = "'.$unIdProduit.'"';
-				$res = $this->executerRequete($req);
+				$req = 'select id, description, prix, image, idCategorie from produit where id = ? ';
+				$res = $this->executerRequete($req, [$unIdProduit]);
 				$unProduit = $res->fetch(PDO::FETCH_OBJ);
 				$lesProduits[] = $unProduit;
 			}
@@ -160,13 +160,13 @@ class ModeleFront extends Modele{
 		$maxi = $laLigne['maxi'] ;// on place le dernier id de commande dans $maxi
 		$idCommande = $maxi+1; // on augmente le dernier id de commande de 1 pour avoir le nouvel idCommande
 		$date = date('Y/m/d'); // récupération de la date système
-		$req = "insert into commande values ('$idCommande','$date','$nom','$rue','$cp','$ville','$mail')";
-		$res = $this->executerRequete($req);
+		$req = "insert into commande values (?, ?, ?, ?, ?, ?, ?)";
+		$res = $this->executerRequete($req, [$idCommande, $date, $nom, $rue, $cp, $ville, $mail]);
 		// insertion produits commandés
 		foreach($lesIdProduit as $unIdProduit)
 		{
-			$req = "insert into contenir values ('$idCommande','$unIdProduit')";
-			$res = $this->executerRequete($req);
+			$req = "insert into contenir values (?, ?)";
+			$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
 		}
 		}
 		catch (PDOException $e) 
