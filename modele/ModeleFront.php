@@ -146,8 +146,7 @@ class ModeleFront extends Modele{
 	 * @param string $cp cp du client
 	 * @param string $ville ville du client
 	 * @param string $mail mail du client
-	 * @param array $lesIdProduit tableau contenant les id des produits commandés
-	 
+	 * @param array $lesIdProduit tableau contenant les id des produits commandés	 
 	*/
 	public function creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduit )
 	{
@@ -168,6 +167,7 @@ class ModeleFront extends Modele{
 			$req = "insert into contenir values (?, ?)";
 			$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
 		}
+		return $res;
 		}
 		catch (PDOException $e) 
 		{

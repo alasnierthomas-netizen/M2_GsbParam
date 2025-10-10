@@ -1,5 +1,6 @@
 <div class="alert alert-light" role="alert" id="panier">Votre panier :</div>
 <div id="produits">
+	<button href="index.php?uc=gererPanier&action=viderPanier">suprimer le panier</button>
 <?php
 foreach( $lesProduitsDuPanier as $unProduit) 
 {

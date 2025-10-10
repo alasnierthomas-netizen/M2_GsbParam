@@ -173,10 +173,13 @@ class ControleurGererPanier{
 			else
 			{
 				$lesIdProduits = $this->getLesIdProduitsDuPanier();
-				$this->modeleFront->creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduits );
-				$message = "La commande a été enregistrée. Merci de votre visite.";
-				$this->supprimerPanier();
-				include ("vues/v_message.php");
+				$rep = $this->modeleFront->creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduits );
+				if ($rep)
+				{
+					$message = "La commande a été enregistrée. Merci de votre visite.";
+					$this->supprimerPanier();
+					include ("vues/v_message.php");
+				}
 			}
 		}
 	/**
