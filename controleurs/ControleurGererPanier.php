@@ -87,6 +87,26 @@ class ControleurGererPanier{
 		}
 		$this->voirPanier();
 	}
+
+		/**
+	 * Suprimer un produit du panier
+	 *
+	 * Teste si le produit est déjà dans la variable session 
+	 * retir le produit à la variable de session dans le cas où
+	 * le produit a été trouvé
+	 
+	* @param Produit $idProduit Le produit à suprimer du panier 
+	*/
+	function suprimerDuPanier($idProduit)
+	{
+		unset($_SESSION['produits'][array_search($idProduit, $_SESSION['produits'])]);
+		if(in_array($idProduit,$_SESSION['produits']))
+		{
+			$msgErreurs[]='Ce produit est déjà dans le panier.';
+			include("vues/v_erreurs.php");
+		}
+		$this->voirPanier();
+	}
 		
 	/**
 	 * Retourne les produits du panier
