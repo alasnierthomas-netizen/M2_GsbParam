@@ -33,8 +33,14 @@ class ControleurVoirProduits{
 		    $lesProduits=$this->modeleFront->getLesProduitsDeCategorie($categ);
             $lesCategories=$this->modeleFront->getLesCategories();
             $lesInfoCateg=$this->modeleFront->getLesInfosCategorie($categ);
-            $message = 'Produits de la catégorie '.$lesInfoCateg->libelle ;
-            include("vues/v_choixCategorie.php");
+            if($lesInfoCateg != false){
+                $message = 'Produits de la catégorie '.$lesInfoCateg->libelle ;
+                
+            }
+            else{
+                $message = 'categorie inexistant';
+            }
+                    include("vues/v_choixCategorie.php");
         }
         include("vues/v_produits.php");
     }
