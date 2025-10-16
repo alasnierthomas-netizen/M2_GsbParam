@@ -19,7 +19,7 @@ abstract class Modele{
  * @param $params un tableau de paramètres
  * @return les objets résultants de la requête
  */
-protected function executerRequete($sql, $params=null){
+protected function executerRequete($sql, $params=null): bool|PDOStatement{
 if ($params == null)
 {
     $result=$this->getBdd()->query($sql); // exécution directe
