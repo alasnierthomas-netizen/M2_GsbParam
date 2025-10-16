@@ -48,7 +48,7 @@ class Routeur{
                 case 'voirPanier' : {$this->ctrlGererPanier->voirPanier();break;}
                 case 'ajouterAuPanier' : {$this->ctrlGererPanier->ajouterAuPanier($_REQUEST['produit']);break;}
                 case 'suprimerDuPanier': {$this->ctrlGererPanier->suprimerDuPanier($_REQUEST['produit']);break;}
-                case 'viderPanier' : {$this->ctrlGererPanier->viderPanier();break;}
+                case 'supprimerPanier' : {$this->ctrlGererPanier->supprimerPanier();break;}
                 case 'passerCommande' : $this->ctrlGererPanier->passerCommande();break;
                 case 'confirmerCommande' : $this->ctrlGererPanier->confirmerCommande();break;
                 default: {$this->ctrlGererPanier->voirPanier();break;}

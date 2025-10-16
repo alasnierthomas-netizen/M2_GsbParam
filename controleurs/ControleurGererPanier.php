@@ -57,15 +57,6 @@ class ControleurGererPanier{
 		}
 
 	/**
-	 * Vide le panier
-	 *
-	 * Supprime le tableau $_SESSION['produits']
-	 */
-	function viderPanier()
-	{
-		unset($_SESSION['produits']);
-	}
-	/**
 	 * Ajoute un produit au panier
 	 *
 	 * Teste si le produit est déjà dans la variable session 
@@ -100,11 +91,6 @@ class ControleurGererPanier{
 	function suprimerDuPanier($idProduit)
 	{
 		unset($_SESSION['produits'][array_search($idProduit, $_SESSION['produits'])]);
-		if(in_array($idProduit,$_SESSION['produits']))
-		{
-			$msgErreurs[]='Ce produit est déjà dans le panier.';
-			include("vues/v_erreurs.php");
-		}
 		$this->voirPanier();
 	}
 		
@@ -190,6 +176,7 @@ class ControleurGererPanier{
 	function supprimerPanier()
 	{
 		unset($_SESSION['produits']);
+		$this->voirPanier();
 	}
 	/**
 	 * teste si une chaîne a un format de code postal
