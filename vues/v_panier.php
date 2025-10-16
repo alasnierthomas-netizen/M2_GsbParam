@@ -1,5 +1,6 @@
 <div class="alert alert-light" role="alert" id="panier">Votre panier :</div>
 <a href="index.php?uc=gererPanier&action=supprimerPanier"><button type="button" class="btn btn-primary" onclick="return confirm('Voulez-vous vraiment vider le panier ?');">suprimer</button></a>
+
 <div id="produits">
 <?php
 foreach( $lesProduitsDuPanier as $unProduit) 
@@ -18,7 +19,12 @@ foreach( $lesProduitsDuPanier as $unProduit)
 	<div class="prixCard"><?= $prix."€" ?></div>
 	</div>
 	<div class="imgCard"><a href="index.php?uc=gererPanier&produit=<?= $id ?>&action=suprimerDuPanier" onclick="return confirm('Voulez-vous vraiment retirer cet article ?');">
-	<img src="assets/images/retirerpanier.png" title="Retirer du panier" alt="retirer du panier"></a></div>
+	<img src="assets/images/retirerpanier.png" title="Retirer du panier" alt="retirer du panier"></a>
+	<?php if (!empty($_SESSION["admin"])){ ?>
+		<a href="index.php?uc=admin&produit=<?= $id ?>&action=changeOrAddProduit">
+		<img src="assets/images/paramètres.png" title="modifier produit" alt="Modifier produit"></a>
+	<?php } ?>
+	</div>
 	</div>
 	<?php
 }
