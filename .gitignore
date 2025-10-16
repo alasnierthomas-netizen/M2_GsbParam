@@ -1,3 +1,2 @@
-# ignore le dossier doc
-/doc
-/assets/images
+# ignore le dossier config
+/config/.config.php

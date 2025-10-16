@@ -1,5 +1,6 @@
 <div class="alert alert-light" role="alert" id="panier">Votre panier :</div>
 <div id="produits">
+	<button href="index.php?uc=gererPanier&action=viderPanier">suprimer le panier</button>
 <?php
 foreach( $lesProduitsDuPanier as $unProduit) 
 {
@@ -16,7 +17,7 @@ foreach( $lesProduitsDuPanier as $unProduit)
 	<div class="descrCard"><?= $description ?></div>
 	<div class="prixCard"><?= $prix."€" ?></div>
 	</div>
-	<div class="imgCard"><a href="index.php?uc=gererPanier&produit=<?= $id ?>&action=supprimerUnProduit" onclick="return confirm('Voulez-vous vraiment retirer cet article ?');">
+	<div class="imgCard"><a href="index.php?uc=gererPanier&produit=<?= $id ?>&action=suprimerDuPanier" onclick="return confirm('Voulez-vous vraiment retirer cet article ?');">
 	<img src="assets/images/retirerpanier.png" title="Retirer du panier" alt="retirer du panier"></a></div>
 	</div>
 	<?php

@@ -1,4 +1,5 @@
-<?php # TODO : test modeleFront 
+// test des méthodes de ModeleFrons
+<?php
 require_once("modele/ModeleFront.php");
 $modelFront = new ModeleFront();
 var_dump($modelFront->getLesCategories());

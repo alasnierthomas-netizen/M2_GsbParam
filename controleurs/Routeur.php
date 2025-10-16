@@ -38,7 +38,8 @@ class Routeur{
             {
                 case null :
                 case 'voirCategories' : {$this->ctrlVoirProduits->voirCategories();break;}
-                case 'nosProduits' : {$this->ctrlVoirProduits->voirProduits($_REQUEST['categorie']);break;}
+                case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH");break;}
+                case 'nosProduits' : {$this->ctrlVoirProduits->voirProduits();break;}
             }; break;
         case 'gererPanier' :
             switch ($action)
@@ -46,6 +47,7 @@ class Routeur{
                 case null :
                 case 'voirPanier' : {$this->ctrlGererPanier->voirPanier();break;}
                 case 'ajouterAuPanier' : {$this->ctrlGererPanier->ajouterAuPanier($_REQUEST['produit']);break;}
+                case 'suprimerDuPanier': {$this->ctrlGererPanier->suprimerDuPanier($_REQUEST['produit']);break;}
                 case 'viderPanier' : {$this->ctrlGererPanier->viderPanier();break;}
                 case 'passerCommande' : $this->ctrlGererPanier->passerCommande();break;
                 case 'confirmerCommande' : $this->ctrlGererPanier->confirmerCommande();break;
