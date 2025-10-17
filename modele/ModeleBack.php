@@ -12,7 +12,7 @@ require_once 'modele/Modele.php';
  * @class ModeleBack
  * @brief contient les fonctions d'accès aux infos de la BD pour les admin
  */
-class ModeleBack extends Modele{
+class ModeleBack extends ModeleFront{
 
     /**
 	 * Retourne l’ID de l’administrateur dont le login et le mot de passe correspondent, sinon renvoie false.

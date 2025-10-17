@@ -58,5 +58,45 @@ class ControleurAdmin{
         unset($_SESSION["admin"]);
         header("Location: index.php");
     }
+
+    public function changeOrAddProduit($idProduit): void{
+        if (!empty($_SESSION["admin"]))
+        {
+            $categories = $this->modeleBack->getLesCategories();
+            if ($idProduit == null) // nouveaux produit
+            {
+                include_once("vues/v_modifProduit.php");
+            }
+            else // modifier produit
+            {
+                $produit = $this->modeleBack->getProduits($idProduit);
+                $description = $produit["description"];
+                $prix = $produit["prix"];
+                $image = $produit["image"];
+                $idCategorie = $produit["idCategorie"];
+                include_once("vues/v_modifProduit.php");
+            }
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
+
+    public function confirmchangeOrAddProduit($idProduit): void{
+        if (!empty($_SESSION["admin"]))
+        {
+            if ($idProduit == null) // nouveaux produit
+            {
+                
+            }
+            else // modifier produit
+            {
+
+            }
+        }
+        else {
+            header("Location: index.php");
+        }
+    }
 }
 ?>

@@ -77,6 +77,32 @@ class ModeleFront extends Modele{
         die();
 		}
 	}
+
+
+	/**
+ * Retourne les info d'un produit en fonction de sont id
+ * catégorie passée en argument
+ * 
+ * @param string $id  l'id du produits
+ * @return $produit information du produit
+*/
+
+	public function getProduits($id)
+	{
+		try 
+		{
+	    $req='select description, prix, image, idCategorie from produit where id = ? ';
+		$res = $this->executerRequete($req, [$id]);
+		$produit = $res->fetch();
+		return $produit; 
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+	}
+
 /**
  * Retourne les produits concernés par le tableau des idProduits passé en argument (si null retourne tous les produits)
  *

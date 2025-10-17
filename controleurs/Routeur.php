@@ -64,6 +64,8 @@ class Routeur{
                     case 'connexion': {$this->ctrlAdmin->connexion();break;}
                     case 'confirmConnexion': {$this->ctrlAdmin->confirmConnexion();break;}
                     case 'deconnexion': {$this->ctrlAdmin->deconnexion();break;}
+                    case 'changeOrAddProduit': {$this->ctrlAdmin->changeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]);break;}
+                    case "confirmchangeOrAddProduit": {$this->ctrlAdmin->confirmchangeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]); break;}
                 }
             }
 		break; 
