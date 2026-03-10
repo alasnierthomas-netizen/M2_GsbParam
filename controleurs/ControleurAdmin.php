@@ -82,7 +82,7 @@ class ControleurAdmin{
         }
     }
 
-    public function confirmchangeOrAddProduit($idProduit): void{
+    public function confirmchangeOrAddProduit($idProduit): void{ #TODO compléter la fonction
         if (!empty($_SESSION["admin"]))
         {
             if ($idProduit == null) // nouveaux produit

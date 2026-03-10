@@ -15,9 +15,9 @@
         </div>
 
         <div class="mb-3 row">
-            <label for="image">image</label>
+            <label for="image">nouvelle image</label>
             <div class="col-sm-10">
-                <input required ="file" value="<?php echo (!empty($image))? $image : "" ?>">
+                <input <?php echo (!empty($image))? "" : "required" ?> type="file">
             </div>
         </div>
 
