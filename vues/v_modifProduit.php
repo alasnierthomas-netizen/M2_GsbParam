@@ -1,10 +1,10 @@
 <div class="contenuCentre">
-    <form action="index.php?uc=admin&action=confirmchangeOrAddProduit" method="post">
+    <form action="index.php?uc=admin&action=confirmchangeOrAddProduit" method="post" enctype="multipart/form-data">
         <input type="text" hidden name="idProduit" value="<?php echo (!empty($idProduit))? $idProduit : "" ?>">
         <div class="mb-3 row">
             <label for="description">description</label>
             <div class="col-sm-10">
-                <textarea name="description"> <?php echo (!empty($description))? $description : "" ?> </textarea>
+                <textarea name="description" required> <?php echo (!empty($description))? $description : "" ?> </textarea>
             </div>
         </div>
 

@@ -18,7 +18,7 @@ class ControleurAdmin{
     
     private $modeleBack;
     public function __construct(){
-        $this->modeleBack=new ModeleBack();
+        $this->modeleBack= new ModeleBack();
     }
 
     public function connexion(){
@@ -83,35 +83,56 @@ class ControleurAdmin{
         }
     }
 
-    public function confirmchangeOrAddProduit(): void{ #TODO compléter la fonction pour ajouter des images
-        if (!empty($_SESSION["admin"]))
-        {
-            if (empty($_REQUEST["idProduit"])) // nouveaux produit
-            {
-                if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"]))
-                {
-                    $msgErreurs = ["veiller remplir tous les champs"];
-                    include_once("vues/v_erreurs.php");
-                    include_once("vues/v_modifProduit.php");
-                    return;
-                }
-                $this->modeleBack->creerProduit($_REQUEST["description"], $_REQUEST["prix"], $_REQUEST["image"], $_REQUEST["idCategorie"]);
-            }
-            else // modifier produit
-            {
-                if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"]))
-                {
-                    $msgErreurs = ["veiller remplir tous les champs"];
-                    include_once("vues/v_erreurs.php");
-                    include_once("vues/v_modifProduit.php");
-                    return;
-                }
-                $this->modeleBack->editProduit($_REQUEST["idProduit"], $_REQUEST["description"], $_REQUEST["prix"], $_REQUEST["image"], $_REQUEST["idCategorie"]);
-            }
+public function confirmchangeOrAddProduit(): void { 
+    if (!empty($_SESSION["admin"])) {
+
+        $imageName = null;
+
+        // Gestion de l'upload
+        if (!empty($_FILES["image"]["name"])) {
+            $imageName = basename($_FILES["image"]["name"]);
+            $cheminDestination = "assets/images/" . $imageName;
+
+            move_uploaded_file($_FILES["image"]["tmp_name"], $cheminDestination);
         }
-        else {
-            header("Location: index.php");
+
+        if (empty($_REQUEST["idProduit"])) { // nouveau produit
+
+            if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"])) {
+                $msgErreurs = ["veiller remplir tous les champs"];
+                include_once("vues/v_erreurs.php");
+                include_once("vues/v_modifProduit.php");
+                return;
+            }
+
+            $this->modeleBack->creerProduit(
+                $_REQUEST["description"],
+                $_REQUEST["prix"],
+                $imageName,
+                $_REQUEST["idCategorie"]
+            );
+
+        } else { // modifier produit
+
+            if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"])) {
+                $msgErreurs = ["veiller remplir tous les champs"];
+                include_once("vues/v_erreurs.php");
+                include_once("vues/v_modifProduit.php");
+                return;
+            }
+
+            $this->modeleBack->editProduit(
+                $_REQUEST["idProduit"],
+                $_REQUEST["description"],
+                $_REQUEST["prix"],
+                $imageName,
+                $_REQUEST["idCategorie"]
+            );
         }
+        header("Location: index.php?uc=voirProduits&action=nosProduits&categorie=".$_REQUEST["idCategorie"]);
+    } else {
+        header("Location: index.php");
     }
+}
 }
 ?>

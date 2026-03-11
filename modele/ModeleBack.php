@@ -40,24 +40,38 @@ class ModeleBack extends ModeleFront{
 
     public function creerProduit(string $description, float $prix, string $image, string $idCategorie)
     {
-        $res = $this->executerRequete("INSERT INTO produit(id, description, prix, image, idCategorie) VALUES (?, ?, ?, ?, ?)", 
-        [$this->modeleFront->CreerIdProduit($idCategorie)
-        , $description
-        , $prix
-        , $image
-        , $idCategorie]);
-        return $res->fetch();
+        if(!empty($image)){
+            $res = $this->executerRequete("INSERT INTO produit(id, description, prix, image, idCategorie) VALUES (?, ?, ?, ?, ?)", 
+            [$this->modeleFront->CreerIdProduit($idCategorie)
+            , $description
+            , $prix
+            , "assets/images/".$image
+            , $idCategorie]);
+            return $res->fetch();
+        }
+        else{
+            $res = $this->executerRequete("INSERT INTO produit(id, description, prix, idCategorie) VALUES (?, ?, ?, ?)", 
+            [$this->modeleFront->CreerIdProduit($idCategorie)
+            , $description
+            , $prix
+            , $idCategorie]);
+            return $res->fetch();
+        }
     }
 
-    public function editProduit(string $id, string $description, float $prix, string $image, string $idCategorie)
+    public function editProduit(string $id, string $description, float $prix, string|null $image, string $idCategorie)
     {
-        $res = $this->executerRequete("UPDATE produit SET description = ?, prix = ?, image = ?, idCategorie = ? WHERE id = ?", 
-        [$description
-        , $prix
-        , $image
-        , $idCategorie
-        , $id]);
-        return $res->fetch();
+        if (!empty($image)) {
+            $res = $this->executerRequete(
+                "UPDATE produit SET description = ?, prix = ?, image = ?, idCategorie = ? WHERE id = ?",
+                [$description, $prix, "assets/images/".$image, $idCategorie, $id]
+            );
+        } else {
+            $res = $this->executerRequete(
+                "UPDATE produit SET description = ?, prix = ?, idCategorie = ? WHERE id = ?",
+                [$description, $prix, $idCategorie, $id]
+            );
+        }
     }
 
 }
