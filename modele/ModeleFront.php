@@ -29,10 +29,30 @@ class ModeleFront extends Modele{
 		} 
 		catch (PDOException $e) 
 		{
-        print "Erreur !: " . $e->getMessage();
-        die();
+			print "Erreur !: " . $e->getMessage();
+			die();
 		}
 	}
+
+	public function CreerIdProduit($idCategorie)
+	{
+		try 
+		{
+			$num = 0;
+			$categorie = $idCategorie[0];
+			do{
+				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
+				$num++;
+			}while($res != false);
+			return $idCategorie[0].$num;
+		}
+		catch (PDOException $e) 
+		{
+			print "Erreur !: " . $e->getMessage();
+			die();
+		}
+	}
+
 	/**
 	 * Retourne toutes les informations d'une catégorie passée en paramètre
 	 *
@@ -77,6 +97,47 @@ class ModeleFront extends Modele{
         die();
 		}
 	}
+
+	public function getQtProduitsDeCategorie($idCategorie): int
+	{
+		try
+		{
+			$res = $this->executerRequete("SELECT COUNT(*) FROM produit WHERE produit.idCategorie = ?", [$idCategorie]);
+			$qtProduits = $res->fetch();
+			return $qtProduits[0];
+		}
+		catch(PDOException $e)
+		{
+			print "Erreur !: " . $e->getMessage();
+        	die();
+		}
+	}
+
+
+	/**
+ * Retourne les info d'un produit en fonction de sont id
+ * catégorie passée en argument
+ * 
+ * @param string $id  l'id du produits
+ * @return $produit information du produit
+*/
+
+	public function getProduits($id)
+	{
+		try 
+		{
+	    $req='select description, prix, image, idCategorie from produit where id = ? ';
+		$res = $this->executerRequete($req, [$id]);
+		$produit = $res->fetch();
+		return $produit; 
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+	}
+
 /**
  * Retourne les produits concernés par le tableau des idProduits passé en argument (si null retourne tous les produits)
  *

@@ -15,7 +15,11 @@
 session_start();
 require 'controleurs/Routeur.php';
 include("vues/v_entete.html") ;
-include("vues/v_bandeau.html") ;
+include("vues/v_bandeau.php") ;
+if (isset($_REQUEST["message"])) {
+    $message = $_REQUEST["message"];
+    include("vues/v_message.php") ;
+}
 $routeur=new Routeur();
 $routeur->routerRequete();
 include("vues/v_pied.html") ;

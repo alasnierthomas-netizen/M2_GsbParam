@@ -2,6 +2,7 @@
 require_once 'controleurs/ControleurVoirProduits.php';
 require_once 'controleurs/ControleurAccueil.php';
 require_once 'controleurs/ControleurGererPanier.php';
+require_once 'controleurs/ControleurAdmin.php';
 /**
  * @class Routeur
  * @brief gère les routes (actions à exécuter en fonction des urls)
@@ -11,12 +12,14 @@ class Routeur{
     private $ctrlVoirProduits;
     private $ctrlAccueil;
     private $ctrlGererPanier;
+    private $ctrlAdmin;
     
     public function __construct(){
         
         $this->ctrlVoirProduits=new ControleurVoirProduits();
         $this->ctrlAccueil=new ControleurAccueil();
         $this->ctrlGererPanier=new ControleurGererPanier();
+        $this->ctrlAdmin=new ControleurAdmin();
     }
     /** recupère les paramètres de l'url et active les contrôleurs nécessaires
     */
@@ -48,12 +51,23 @@ class Routeur{
                 case 'voirPanier' : {$this->ctrlGererPanier->voirPanier();break;}
                 case 'ajouterAuPanier' : {$this->ctrlGererPanier->ajouterAuPanier($_REQUEST['produit']);break;}
                 case 'suprimerDuPanier': {$this->ctrlGererPanier->suprimerDuPanier($_REQUEST['produit']);break;}
-                case 'viderPanier' : {$this->ctrlGererPanier->viderPanier();break;}
+                case 'supprimerPanier' : {$this->ctrlGererPanier->supprimerPanier();break;}
                 case 'passerCommande' : $this->ctrlGererPanier->passerCommande();break;
                 case 'confirmerCommande' : $this->ctrlGererPanier->confirmerCommande();break;
                 default: {$this->ctrlGererPanier->voirPanier();break;}
             }; break;
-        case 'administrer' :  // TODO Créer un contrôleur spécial pour l'administration du site
+        case 'admin' :  // TODO Créer un contrôleur spécial pour l'administration du site
+            {
+                switch ($action)
+                {
+                    case null :
+                    case 'connexion': {$this->ctrlAdmin->connexion();break;}
+                    case 'confirmConnexion': {$this->ctrlAdmin->confirmConnexion();break;}
+                    case 'deconnexion': {$this->ctrlAdmin->deconnexion();break;}
+                    case 'changeOrAddProduit': {$this->ctrlAdmin->changeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]);break;}
+                    case "confirmchangeOrAddProduit": {$this->ctrlAdmin->confirmchangeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]); break;}
+                }
+            }
 		break; 
     }
     }

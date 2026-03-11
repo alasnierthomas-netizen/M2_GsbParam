@@ -16,7 +16,11 @@ foreach( $lesProduits as $unProduit)
 			<div class="prixCard"><?= $prix."€" ?></div>
 			</div>
 			<div class="imgCard"><a href="index.php?uc=gererPanier&produit=<?= $id ?>&action=ajouterAuPanier"> 
-			<img src="assets/images/mettrepanier.png" title="Ajouter au panier" alt="Mettre au panier"> </a></div>
+			<img src="assets/images/mettrepanier.png" title="Ajouter au panier" alt="Mettre au panier"> </a>
+			<?php if (!empty($_SESSION["admin"])){ ?>
+		<a href="index.php?uc=admin&produit=<?= $id ?>&action=changeOrAddProduit">
+		<img src="assets/images/paramètres.png" title="modifier produit" alt="Modifier produit"></a>
+	<?php } ?></div>
 			
 	</div>
 <?php			

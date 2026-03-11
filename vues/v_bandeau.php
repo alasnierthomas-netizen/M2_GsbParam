@@ -13,6 +13,12 @@
               <li><a  href="index.php?uc=voirProduits&action=nosProduits" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">Nos produits</a></li>
               <li><a  href="index.php?uc=voirProduits&action=voirProduits&categorie=CH" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">Produits par catégorie</a></li>
               <li><a href="index.php?uc=gererPanier&action=voirPanier" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">Mon panier</a></li>
+              <?php if(empty($_SESSION['admin'])){?> 
+                <li><a href="index.php?uc=admin&action=connexion" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">connexion</a></li>
+              <?php }
+              else { ?>
+                <li><a href="index.php?uc=admin&action=deconnexion" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">deconnexion</a></li>
+              <?php } ?>
             </ul>
           </div>
 
