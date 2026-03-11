@@ -70,6 +70,7 @@ class ControleurAdmin{
             else // modifier produit
             {
                 $produit = $this->modeleBack->getProduits($idProduit);
+                $idProduit = $_REQUEST["produit"];
                 $description = $produit["description"];
                 $prix = $produit["prix"];
                 $image = $produit["image"];
@@ -82,16 +83,30 @@ class ControleurAdmin{
         }
     }
 
-    public function confirmchangeOrAddProduit($idProduit): void{ #TODO compléter la fonction
+    public function confirmchangeOrAddProduit(): void{ #TODO compléter la fonction pour ajouter des images
         if (!empty($_SESSION["admin"]))
         {
-            if ($idProduit == null) // nouveaux produit
+            if (empty($_REQUEST["idProduit"])) // nouveaux produit
             {
-                
+                if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"]))
+                {
+                    $msgErreurs = ["veiller remplir tous les champs"];
+                    include_once("vues/v_erreurs.php");
+                    include_once("vues/v_modifProduit.php");
+                    return;
+                }
+                $this->modeleBack->creerProduit($_REQUEST["description"], $_REQUEST["prix"], $_REQUEST["image"], $_REQUEST["idCategorie"]);
             }
             else // modifier produit
             {
-
+                if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"]))
+                {
+                    $msgErreurs = ["veiller remplir tous les champs"];
+                    include_once("vues/v_erreurs.php");
+                    include_once("vues/v_modifProduit.php");
+                    return;
+                }
+                $this->modeleBack->editProduit($_REQUEST["idProduit"], $_REQUEST["description"], $_REQUEST["prix"], $_REQUEST["image"], $_REQUEST["idCategorie"]);
             }
         }
         else {

@@ -29,10 +29,30 @@ class ModeleFront extends Modele{
 		} 
 		catch (PDOException $e) 
 		{
-        print "Erreur !: " . $e->getMessage();
-        die();
+			print "Erreur !: " . $e->getMessage();
+			die();
 		}
 	}
+
+	public function CreerIdProduit($idCategorie)
+	{
+		try 
+		{
+			$num = 0;
+			$categorie = $idCategorie[0];
+			do{
+				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
+				$num++;
+			}while($res != false);
+			return $idCategorie[0].$num;
+		}
+		catch (PDOException $e) 
+		{
+			print "Erreur !: " . $e->getMessage();
+			die();
+		}
+	}
+
 	/**
 	 * Retourne toutes les informations d'une catégorie passée en paramètre
 	 *
@@ -75,6 +95,21 @@ class ModeleFront extends Modele{
 		{
         print "Erreur !: " . $e->getMessage();
         die();
+		}
+	}
+
+	public function getQtProduitsDeCategorie($idCategorie): int
+	{
+		try
+		{
+			$res = $this->executerRequete("SELECT COUNT(*) FROM produit WHERE produit.idCategorie = ?", [$idCategorie]);
+			$qtProduits = $res->fetch();
+			return $qtProduits[0];
+		}
+		catch(PDOException $e)
+		{
+			print "Erreur !: " . $e->getMessage();
+        	die();
 		}
 	}
 
