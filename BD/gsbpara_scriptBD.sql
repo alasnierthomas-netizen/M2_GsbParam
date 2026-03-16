@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : lun. 16 mars 2026 à 07:57
+-- Généré le : lun. 16 mars 2026 à 08:29
 -- Version du serveur : 11.5.2-MariaDB
 -- Version de PHP : 8.3.14
 
@@ -122,6 +122,30 @@ INSERT INTO `contenir` (`idCommande`, `idProduit`, `qt`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `marque`
+--
+
+DROP TABLE IF EXISTS `marque`;
+CREATE TABLE IF NOT EXISTS `marque` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `marque`
+--
+
+INSERT INTO `marque` (`id`, `nom`) VALUES
+(1, 'dior'),
+(2, 'caudalie'),
+(3, 'klorane'),
+(4, 'roc'),
+(5, 'yves rocher');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `produit`
 --
 
@@ -133,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `image` char(100) DEFAULT NULL,
   `idCategorie` char(3) DEFAULT NULL,
   `nom` varchar(50) NOT NULL,
-  `marque` varchar(50) NOT NULL,
+  `marque` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
   `contenance` float NOT NULL,
   `unite` varchar(10) NOT NULL,
@@ -146,26 +170,26 @@ CREATE TABLE IF NOT EXISTS `produit` (
 --
 
 INSERT INTO `produit` (`id`, `description`, `prix`, `image`, `idCategorie`, `nom`, `marque`, `stock`, `contenance`, `unite`) VALUES
-('c01', '          Laino Shampooing Douche au Thé Vert BIO', 4.00, 'assets/images/la-roche-posay-cicaplast-creme-pansement-40ml.jpg', 'CH', ' Laino Shampooing', '', 18, 0, 'ml'),
-('c02', 'Klorane fibres de lin baume après shampooing', 10.80, 'assets/images/klorane-fibres-de-lin-baume-apres-shampooing-150-ml.jpg', 'CH', 'Klorane fibres', '', 8, 0, 'ml'),
-('c03', 'Weleda Kids 2in1 Shower & Shampoo Orange fruitée', 4.00, 'assets/images/weleda-kids-2in1-shower-shampoo-orange-fruitee-150-ml.jpg', 'CH', 'Weleda Kids', '', 87, 0, 'ml'),
-('c05', 'Klorane Shampooing sec à l\'extrait d\'ortie', 6.10, 'assets/images/klorane-shampooing-sec-a-l-extrait-d-ortie-spray-150ml.png', 'CH', 'Klorane Shampooing', '', 11, 0, 'ml'),
-('c06', 'Phytopulp mousse volume intense', 18.00, 'assets/images/phytopulp-mousse-volume-intense-200ml.jpg', 'CH', 'Phytopulp mousse', '', 96, 0, 'ml'),
-('c07', 'Bio Beaute by Nuxe Shampooing nutritif', 8.00, 'assets/images/bio-beaute-by-nuxe-shampooing-nutritif-200ml.png', 'CH', 'Bio Beaute by Nuxe ', 'Nuxe', 47, 0, 'ml'),
-('f01', 'Nuxe Men Contour des Yeux Multi-Fonctions', 12.05, 'assets/images/nuxe-men-contour-des-yeux-multi-fonctions-15ml.png', 'FO', 'Nuxe Men Contour ', 'Nuxe', 46, 0, 'ml'),
-('f02', 'Tisane romon nature sommirel bio sachet 20', 5.50, 'assets/images/tisane-romon-nature-sommirel-bio-sachet-20.jpg', 'FO', 'Tisane romon nature ', 'Romon', 88, 0, 'ml'),
-('f03', 'La Roche Posay Cicaplast crème pansement', 11.00, 'assets/images/la-roche-posay-cicaplast-creme-pansement-40ml.jpg', 'FO', 'La Roche Posay', 'La Roche', 6, 0, 'ml'),
-('f04', 'Futuro sport stabilisateur pour cheville', 26.50, 'assets/images/futuro-sport-stabilisateur-pour-cheville-deluxe-attelle-cheville.png', 'FO', 'Futuro sport stabilisateur', 'Futuro sport', 65, 0, 'ml'),
-('f05', 'Microlife pèse-personne électronique weegschaal', 63.00, 'assets/images/microlife-pese-personne-electronique-weegschaal-ws80.jpg', 'FO', 'Microlife pèse-personne ', 'jsp', 7, 0, 'ml'),
-('f06', 'Melapi Miel Thym Liquide 500g', 6.50, 'assets/images/melapi-miel-thym-liquide-500g.jpg', 'FO', 'Melapi Miel Thym', 'jsp', 42, 0, 'ml'),
-('f07', 'Meli Meliflor Pollen 200g', 8.60, 'assets/images/melapi-pollen-250g.jpg', 'FO', 'Meli Meliflor', 'meli', 89, 0, 'ml'),
-('p01', 'Avène solaire Spray très haute protection', 22.00, 'assets/images/avene-solaire-spray-tres-haute-protection-spf50200ml.png', 'PS', 'Avène solaire Spray', 'solaire', 18, 0, 'ml'),
-('p02', 'Mustela Solaire Lait très haute Protection', 17.50, 'assets/images/mustela-solaire-lait-tres-haute-protection-spf50-100ml.jpg', 'PS', 'Mustela Solaire Lait ', 'solaire', 25, 0, 'ml'),
-('p03', 'Isdin Eryfotona aAK fluid', 29.00, 'assets/images/isdin-eryfotona-aak-fluid-100-50ml.jpg', 'PS', 'Isdin Eryfotona', 'jsp', 71, 0, 'ml'),
-('p04', 'La Roche Posay Anthélios 50+ Brume Visage', 8.75, 'assets/images/la-roche-posay-anthelios-50-brume-visage-toucher-sec-75ml.png', 'PS', 'La Roche Posay ', 'La roche', 82, 0, 'ml'),
-('p05', 'Nuxe Sun Huile Lactée Capillaire Protectrice', 15.00, 'assets/images/nuxe-sun-huile-lactee-capillaire-protectrice-100ml.png', 'PS', 'Nuxe Sun Huile', 'jsp', 95, 0, 'ml'),
-('p06', 'Uriage Bariésun stick lèvres SPF30 4g', 5.65, 'assets/images/uriage-bariesun-stick-levres-spf30-4g.jpg', 'PS', 'Uriage Bariésun stick', 'uriage', 32, 0, 'ml'),
-('p07', 'Bioderma Cicabio creme SPF50+ 30ml', 13.70, 'assets/images/bioderma-cicabio-creme-spf50-30ml.png', 'PS', 'Bioderma Cicabio ', 'Bioderma', 73, 0, 'ml');
+('c01', '          Laino Shampooing Douche au Thé Vert BIO', 4.00, 'assets/images/la-roche-posay-cicaplast-creme-pansement-40ml.jpg', 'CH', ' Laino Shampooing', 2, 18, 0, 'ml'),
+('c02', 'Klorane fibres de lin baume après shampooing', 10.80, 'assets/images/klorane-fibres-de-lin-baume-apres-shampooing-150-ml.jpg', 'CH', 'Klorane fibres', 1, 8, 0, 'ml'),
+('c03', 'Weleda Kids 2in1 Shower & Shampoo Orange fruitée', 4.00, 'assets/images/weleda-kids-2in1-shower-shampoo-orange-fruitee-150-ml.jpg', 'CH', 'Weleda Kids', 1, 87, 0, 'ml'),
+('c05', 'Klorane Shampooing sec à l\'extrait d\'ortie', 6.10, 'assets/images/klorane-shampooing-sec-a-l-extrait-d-ortie-spray-150ml.png', 'CH', 'Klorane Shampooing', 1, 11, 0, 'ml'),
+('c06', 'Phytopulp mousse volume intense', 18.00, 'assets/images/phytopulp-mousse-volume-intense-200ml.jpg', 'CH', 'Phytopulp mousse', 3, 96, 0, 'ml'),
+('c07', 'Bio Beaute by Nuxe Shampooing nutritif', 8.00, 'assets/images/bio-beaute-by-nuxe-shampooing-nutritif-200ml.png', 'CH', 'Bio Beaute by Nuxe ', 1, 47, 0, 'ml'),
+('f01', 'Nuxe Men Contour des Yeux Multi-Fonctions', 12.05, 'assets/images/nuxe-men-contour-des-yeux-multi-fonctions-15ml.png', 'FO', 'Nuxe Men Contour ', 3, 46, 0, 'ml'),
+('f02', 'Tisane romon nature sommirel bio sachet 20', 5.50, 'assets/images/tisane-romon-nature-sommirel-bio-sachet-20.jpg', 'FO', 'Tisane romon nature ', 4, 88, 0, 'ml'),
+('f03', 'La Roche Posay Cicaplast crème pansement', 11.00, 'assets/images/la-roche-posay-cicaplast-creme-pansement-40ml.jpg', 'FO', 'La Roche Posay', 1, 6, 0, 'ml'),
+('f04', 'Futuro sport stabilisateur pour cheville', 26.50, 'assets/images/futuro-sport-stabilisateur-pour-cheville-deluxe-attelle-cheville.png', 'FO', 'Futuro sport stabilisateur', 2, 65, 0, 'ml'),
+('f05', 'Microlife pèse-personne électronique weegschaal', 63.00, 'assets/images/microlife-pese-personne-electronique-weegschaal-ws80.jpg', 'FO', 'Microlife pèse-personne ', 3, 7, 0, 'ml'),
+('f06', 'Melapi Miel Thym Liquide 500g', 6.50, 'assets/images/melapi-miel-thym-liquide-500g.jpg', 'FO', 'Melapi Miel Thym', 1, 42, 0, 'ml'),
+('f07', 'Meli Meliflor Pollen 200g', 8.60, 'assets/images/melapi-pollen-250g.jpg', 'FO', 'Meli Meliflor', 2, 89, 0, 'ml'),
+('p01', 'Avène solaire Spray très haute protection', 22.00, 'assets/images/avene-solaire-spray-tres-haute-protection-spf50200ml.png', 'PS', 'Avène solaire Spray', 2, 18, 0, 'ml'),
+('p02', 'Mustela Solaire Lait très haute Protection', 17.50, 'assets/images/mustela-solaire-lait-tres-haute-protection-spf50-100ml.jpg', 'PS', 'Mustela Solaire Lait ', 1, 25, 0, 'ml'),
+('p03', 'Isdin Eryfotona aAK fluid', 29.00, 'assets/images/isdin-eryfotona-aak-fluid-100-50ml.jpg', 'PS', 'Isdin Eryfotona', 4, 71, 0, 'ml'),
+('p04', 'La Roche Posay Anthélios 50+ Brume Visage', 8.75, 'assets/images/la-roche-posay-anthelios-50-brume-visage-toucher-sec-75ml.png', 'PS', 'La Roche Posay ', 3, 82, 0, 'ml'),
+('p05', 'Nuxe Sun Huile Lactée Capillaire Protectrice', 15.00, 'assets/images/nuxe-sun-huile-lactee-capillaire-protectrice-100ml.png', 'PS', 'Nuxe Sun Huile', 3, 95, 0, 'ml'),
+('p06', 'Uriage Bariésun stick lèvres SPF30 4g', 5.65, 'assets/images/uriage-bariesun-stick-levres-spf30-4g.jpg', 'PS', 'Uriage Bariésun stick', 5, 32, 0, 'ml'),
+('p07', 'Bioderma Cicabio creme SPF50+ 30ml', 13.70, 'assets/images/bioderma-cicabio-creme-spf50-30ml.png', 'PS', 'Bioderma Cicabio ', 4, 73, 0, 'ml');
 
 --
 -- Contraintes pour les tables déchargées
