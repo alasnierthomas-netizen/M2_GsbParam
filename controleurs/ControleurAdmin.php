@@ -59,7 +59,7 @@ class ControleurAdmin{
         header("Location: index.php");
     }
 
-    public function changeOrAddProduit($idProduit): void{ #TODO : créer un nombre limiter de posibiliter pour le champ "unité" dans la base de donner, et évoluer le formulaire en conséquence.
+    public function changeOrAddProduit($idProduit): void{ 
         if (!empty($_SESSION["admin"]))
         {
             $categories = $this->modeleBack->getLesCategories();
@@ -79,7 +79,8 @@ class ControleurAdmin{
                 $marque = $produit["marque"];
                 $stock = $produit["stock"];
                 $contenance = $produit["contenance"];
-                $unite = $produit["unite"];
+                $idUnite = $produit["unite"];
+                $unites = $this->modeleBack->getLesUnites();
                 include_once("vues/v_modifProduit.php");
             }
         }

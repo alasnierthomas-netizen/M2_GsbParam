@@ -13,6 +13,50 @@ require_once 'modele/Modele.php';
  * @brief contient les fonctions d'accès aux infos de la BD pour les utilisateurs
  */
 class ModeleFront extends Modele{
+
+
+	/**
+	 * Retourne les info de l'unité en fonction de sont id
+	 *
+	 * @return array les info de l'unité
+	*/
+	public function getUnite($idUnite)
+	{
+		try 
+		{
+	    $req='select unite from unite where id = ? ';
+		$res = $this->executerRequete($req, [$idUnite]);
+		$unite = $res->fetch();
+		return $unite; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
+	/**
+	 * Retourne toutes les unités 
+	 *
+	 * @return array $lesUnites le tableau des unités (tableau d'objets)
+	*/
+	public function getLesUnites()
+	{
+		try 
+		{
+	    $req='select id, libelle from unite';
+		$res = $this->executerRequete($req);
+		$lesUnites = $res->fetchAll(PDO::FETCH_OBJ);
+		return $lesUnites; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
 	/**
 	 * Retourne toutes les catégories 
 	 *

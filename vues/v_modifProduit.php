@@ -55,7 +55,13 @@
 
                     <div class="mb-3">
                         <label for="unite" class="form-label">Unité</label>
-                        <input id="unite" name="unite" required class="form-control" type="text" value="<?php echo (!empty($unite)) ? htmlspecialchars($unite) : "" ?>">
+                        <select id="unite" name="unite" class="form-select">
+                            <?php foreach ($unites as $unite) { ?>
+                                <option value="<?php echo $unite->id ?>" <?php echo ($unite->id == $idUnite) ? "selected" : ""; ?>>
+                                    <?php echo htmlspecialchars($unite->libelle) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -72,7 +78,7 @@
 
             <div class="d-flex justify-content-center mt-4">
                 <button class="btn btn-success me-2" type="submit" name="valider">Modifier le produit</button>
-                <a class="btn btn-secondary" href="index.php?uc=admin&action=listeProduits">Retour</a>
+                <a class="btn btn-secondary" href="index.php?uc=accueil">Retour</a> <?php #TODO :trouver un moyen de renvoiller a la page d'avent ?>
             </div>
         </form>
     </div>
