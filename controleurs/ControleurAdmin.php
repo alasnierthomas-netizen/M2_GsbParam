@@ -59,7 +59,7 @@ class ControleurAdmin{
         header("Location: index.php");
     }
 
-    public function changeOrAddProduit($idProduit): void{
+    public function changeOrAddProduit($idProduit): void{ #TODO : créer un nombre limiter de posibiliter pour le champ "unité" dans la base de donner, et évoluer le formulaire en conséquence.
         if (!empty($_SESSION["admin"]))
         {
             $categories = $this->modeleBack->getLesCategories();
@@ -70,11 +70,16 @@ class ControleurAdmin{
             else // modifier produit
             {
                 $produit = $this->modeleBack->getProduits($idProduit);
-                $idProduit = $_REQUEST["produit"];
+                $id = $produit["id"];
                 $description = $produit["description"];
                 $prix = $produit["prix"];
                 $image = $produit["image"];
                 $idCategorie = $produit["idCategorie"];
+                $nom = $produit["nom"];
+                $marque = $produit["marque"];
+                $stock = $produit["stock"];
+                $contenance = $produit["contenance"];
+                $unite = $produit["unite"];
                 include_once("vues/v_modifProduit.php");
             }
         }
@@ -96,10 +101,18 @@ public function confirmchangeOrAddProduit(): void {
             move_uploaded_file($_FILES["image"]["tmp_name"], $cheminDestination);
         }
 
+        # test si les champs obligatoires sont remplis
+        if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"] || empty($_REQUEST["nom"]) || empty($_REQUEST["marque"]) || empty($_REQUEST["contenance"]) || empty($_REQUEST["unite"]))) {
+            $msgErreurs = ["veiller remplir les champs obligatoires"];
+            include_once("vues/v_erreurs.php");
+            include_once("vues/v_modifProduit.php");
+            return;
+        }
+
         if (empty($_REQUEST["idProduit"])) { // nouveau produit
 
-            if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"])) {
-                $msgErreurs = ["veiller remplir tous les champs"];
+            if (empty($imageName)) {
+                $msgErreurs = ["veiller ajouter une image pour le produit"];
                 include_once("vues/v_erreurs.php");
                 include_once("vues/v_modifProduit.php");
                 return;
@@ -109,24 +122,27 @@ public function confirmchangeOrAddProduit(): void {
                 $_REQUEST["description"],
                 $_REQUEST["prix"],
                 $imageName,
-                $_REQUEST["idCategorie"]
+                $_REQUEST["idCategorie"],
+                $_REQUEST["nom"],
+                $_REQUEST["marque"],
+                (empty($_REQUEST["stock"])) ? 0 : $_REQUEST["stock"],
+                $_REQUEST["contenance"],
+                $_REQUEST["unite"]
             );
 
         } else { // modifier produit
-
-            if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"])) {
-                $msgErreurs = ["veiller remplir tous les champs"];
-                include_once("vues/v_erreurs.php");
-                include_once("vues/v_modifProduit.php");
-                return;
-            }
 
             $this->modeleBack->editProduit(
                 $_REQUEST["idProduit"],
                 $_REQUEST["description"],
                 $_REQUEST["prix"],
                 $imageName,
-                $_REQUEST["idCategorie"]
+                $_REQUEST["idCategorie"],
+                $_REQUEST["nom"],
+                $_REQUEST["marque"],
+                (empty($_REQUEST["stock"]))? 0 : $_REQUEST["stock"],
+                $_REQUEST["contenance"],
+                $_REQUEST["unite"]
             );
         }
         header("Location: index.php?uc=voirProduits&action=nosProduits&categorie=".$_REQUEST["idCategorie"]);
@@ -135,4 +151,3 @@ public function confirmchangeOrAddProduit(): void {
     }
 }
 }
-?>

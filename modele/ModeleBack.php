@@ -38,40 +38,39 @@ class ModeleBack extends ModeleFront{
         return $rep;
     }
 
-    public function creerProduit(string $description, float $prix, string $image, string $idCategorie)
+    #TODO: demander a join comment marche la surcharge en php (y en a probablement pas)
+    public function creerProduit(string $description, float $prix, string $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
     {
-        if(!empty($image)){
-            $res = $this->executerRequete("INSERT INTO produit(id, description, prix, image, idCategorie) VALUES (?, ?, ?, ?, ?)", 
-            [$this->modeleFront->CreerIdProduit($idCategorie)
-            , $description
-            , $prix
-            , "assets/images/".$image
-            , $idCategorie]);
-            return $res->fetch();
-        }
-        else{
-            $res = $this->executerRequete("INSERT INTO produit(id, description, prix, idCategorie) VALUES (?, ?, ?, ?)", 
-            [$this->modeleFront->CreerIdProduit($idCategorie)
-            , $description
-            , $prix
-            , $idCategorie]);
-            return $res->fetch();
-        }
+        $res = $this->executerRequete("INSERT INTO produit(id, description, prix, image, idCategorie, nom, marque, stock, contenance, unite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+        [$this->modeleFront->CreerIdProduit($idCategorie)
+        , $description
+        , $prix
+        , "assets/images/".$image
+        , $idCategorie
+        , $nom
+        , $marque
+        , $stock
+        , $contenance
+        , $unite]);
+        return $res->fetch();
+  
     }
 
-    public function editProduit(string $id, string $description, float $prix, string|null $image, string $idCategorie)
+    public function editProduit(string $id, string $description, float $prix, string|null $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
     {
         if (!empty($image)) {
             $res = $this->executerRequete(
-                "UPDATE produit SET description = ?, prix = ?, image = ?, idCategorie = ? WHERE id = ?",
-                [$description, $prix, "assets/images/".$image, $idCategorie, $id]
+                "UPDATE produit SET description = ?, prix = ?, image = ?, idCategorie = ?, nom = ?, marque = ?, stock = ?, contenance = ?, unite = ? WHERE id = ?",
+                [$description, $prix, "assets/images/".$image, $idCategorie, $nom, $marque, $stock, $contenance, $unite, $id]
             );
         } else {
             $res = $this->executerRequete(
-                "UPDATE produit SET description = ?, prix = ?, idCategorie = ? WHERE id = ?",
-                [$description, $prix, $idCategorie, $id]
+                "UPDATE produit SET description = ?, prix = ?, idCategorie = ?, nom = ?, marque = ?, stock = ?, contenance = ?, unite = ? WHERE id = ?",
+                [$description, $prix, $idCategorie, $nom, $marque, $stock, $contenance, $unite, $id]
             );
         }
     }
+
+
 
 }

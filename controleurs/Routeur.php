@@ -56,7 +56,7 @@ class Routeur{
                 case 'confirmerCommande' : $this->ctrlGererPanier->confirmerCommande();break;
                 default: {$this->ctrlGererPanier->voirPanier();break;}
             }; break;
-        case 'admin' :  // TODO Créer un contrôleur spécial pour l'administration du site
+        case 'admin' :
             {
                 switch ($action)
                 {

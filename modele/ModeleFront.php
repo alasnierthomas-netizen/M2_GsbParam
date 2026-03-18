@@ -34,6 +34,12 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne un id qui n'a pas encore été utilisé pour un produit de la catégorie passée en paramètre
+	 *
+	 * @param string $idCategorie l'id de la catégorie
+	 * @return string un id de produit unique pour la catégorie passée en paramètre
+	*/
 	public function CreerIdProduit($idCategorie)
 	{
 		try 
@@ -126,7 +132,7 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-	    $req='select description, prix, image, idCategorie from produit where id = ? ';
+	    $req='select id, description, prix, image, idCategorie, nom, marque, stock, contenance, unite from produit where id = ? ';
 		$res = $this->executerRequete($req, [$id]);
 		$produit = $res->fetch();
 		return $produit; 
