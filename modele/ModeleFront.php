@@ -36,6 +36,23 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	public function getMarques()
+	{
+		try 
+		{
+	    $req='select id, nom from marque';
+		$res = $this->executerRequete($req);
+		$marques = $res->fetchAll(PDO::FETCH_OBJ);
+		return $marques; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+	
+
 	/**
 	 * Retourne toutes les unités 
 	 *
@@ -84,16 +101,15 @@ class ModeleFront extends Modele{
 	 * @param string $idCategorie l'id de la catégorie
 	 * @return string un id de produit unique pour la catégorie passée en paramètre
 	*/
-	public function CreerIdProduit($idCategorie)
+	public function creerIdProduit($idCategorie) #TODO : probléme, on vois aprés
 	{
 		try 
 		{
 			$num = 0;
-			$categorie = $idCategorie[0];
 			do{
 				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
 				$num++;
-			}while($res != false);
+			}while($res->fetch() != false);
 			return $idCategorie[0].$num;
 		}
 		catch (PDOException $e) 

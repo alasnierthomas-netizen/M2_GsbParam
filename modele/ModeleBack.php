@@ -42,7 +42,7 @@ class ModeleBack extends ModeleFront{
     public function creerProduit(string $description, float $prix, string $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
     {
         $res = $this->executerRequete("INSERT INTO produit(id, description, prix, image, idCategorie, nom, marque, stock, contenance, unite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-        [$this->modeleFront->CreerIdProduit($idCategorie)
+        [$this->modeleFront->creerIdProduit($idCategorie)
         , $description
         , $prix
         , "assets/images/".$image

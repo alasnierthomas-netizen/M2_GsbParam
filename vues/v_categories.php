@@ -1,5 +1,4 @@
 <ul id="categories">
-
 <?php
 foreach( $lesCategories as $uneCategorie) 
 {

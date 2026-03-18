@@ -20,9 +20,15 @@
                         <textarea id="description" name="description" required class="form-control" rows="4"><?php echo (!empty($description)) ? htmlspecialchars($description) : "" ?></textarea>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3"> 
                         <label for="marque" class="form-label">Marque du produit</label>
-                        <input id="marque" name="marque" required class="form-control" type="text" value="<?php echo (!empty($marque)) ? htmlspecialchars($marque) : "" ?>">
+                        <select id="marque" name="marque" class="form-select">
+                            <?php foreach ($marques as $marque) { ?>
+                                <option value="<?php echo $marque->id ?>" <?php echo ($marque->id == $idMarque) ? "selected" : ""; ?>>
+                                    <?php echo htmlspecialchars($marque->nom) ?>
+                                </option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
 

@@ -65,6 +65,11 @@ class ControleurAdmin{
             $categories = $this->modeleBack->getLesCategories();
             if ($idProduit == null) // nouveaux produit
             {
+                $unites = $this->modeleBack->getLesUnites();
+                $idUnite = 2;
+                $idCategorie = 1;
+                $marques = $this->modeleBack->getMarques();
+                $idMarque = 1;
                 include_once("vues/v_modifProduit.php");
             }
             else // modifier produit
@@ -76,7 +81,8 @@ class ControleurAdmin{
                 $image = $produit["image"];
                 $idCategorie = $produit["idCategorie"];
                 $nom = $produit["nom"];
-                $marque = $produit["marque"];
+                $marques = $this->modeleBack->getMarques();
+                $idMarque = $produit["marque"];
                 $stock = $produit["stock"];
                 $contenance = $produit["contenance"];
                 $idUnite = $produit["unite"];
@@ -119,7 +125,7 @@ public function confirmchangeOrAddProduit(): void {
                 return;
             }
 
-            $this->modeleBack->creerProduit(
+            $this->modeleBack->creerProduit( #TODO : faire évoluer le formulaire pour afficher une list déterminer de marque
                 $_REQUEST["description"],
                 $_REQUEST["prix"],
                 $imageName,
