@@ -105,10 +105,10 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-			$num = 0;
+			$num = -1;
 			do{
-				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
 				$num++;
+				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
 			}while($res->fetch() != false);
 			return $idCategorie[0].$num;
 		}

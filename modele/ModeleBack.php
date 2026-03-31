@@ -71,6 +71,9 @@ class ModeleBack extends ModeleFront{
         }
     }
 
+    public function supprimerProduit(string $idProduit): void{
+        $this->executerRequete("DELETE FROM produit WHERE id = ?", [$idProduit]);
+    }
 
 
 }

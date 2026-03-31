@@ -83,7 +83,10 @@
             </div>
 
             <div class="d-flex justify-content-center mt-4">
-                <button class="btn btn-success me-2" type="submit" name="valider">Modifier le produit</button>
+                <button class="btn btn-success me-2" type="submit" name="valider"><?php echo !empty($id) ? "Modifier le produit" : "Ajouter le produit"; ?></button>
+                <?php if (!empty($id)) { ?>
+                    <a class="btn btn-danger" href="index.php?uc=admin&action=supprimerProduit&id=<?php echo $id; ?>&categorie=<?php echo $idCategorie; ?>">Supprimer</a>
+                <?php } ?>
                 <a class="btn btn-secondary" href="index.php?uc=accueil">Retour</a> <?php #TODO :trouver un moyen de renvoiller a la page d'avent ?>
             </div>
         </form>

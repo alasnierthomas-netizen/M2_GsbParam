@@ -109,23 +109,45 @@ public function confirmchangeOrAddProduit(): void {
         }
 
         # test si les champs obligatoires sont remplis
-        if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"] || empty($_REQUEST["nom"]) || empty($_REQUEST["marque"]) || empty($_REQUEST["contenance"]) || empty($_REQUEST["unite"]))) {
+        if (empty($_REQUEST["description"]) || empty($_REQUEST["prix"]) || empty($_REQUEST["idCategorie"]) || empty($_REQUEST["nom"]) || empty($_REQUEST["marque"]) || empty($_REQUEST["contenance"]) || empty($_REQUEST["unite"])) {
             $msgErreurs = ["veiller remplir les champs obligatoires"];
             include_once("vues/v_erreurs.php");
+            #si le formulaire n'est pas complais on renvois l'utilisateur sur le formulaire de modification avec les champs préremplis
+            $categories = $this->modeleBack->getLesCategories();
+            $prix = (!empty($_REQUEST["prix"])) ? $_REQUEST["prix"] : "";
+            $nom = (!empty($_REQUEST["nom"])) ? $_REQUEST["nom"] : "";
+            $contenance = (!empty($_REQUEST["contenance"])) ? $_REQUEST["contenance"] : "";
+            $description = (!empty($_REQUEST["description"])) ? $_REQUEST["description"] : "";
+            $unites = $this->modeleBack->getLesUnites();
+            $idUnite = (!empty($_REQUEST["unite"])) ? $_REQUEST["unite"] : 2;
+            $idCategorie = (!empty($_REQUEST["idCategorie"])) ? $_REQUEST["idCategorie"] : 1;
+            $marques = $this->modeleBack->getMarques();
+            $idMarque = (!empty($_REQUEST["marque"])) ? $_REQUEST["marque"] : 1;
             include_once("vues/v_modifProduit.php");
             return;
         }
 
         if (empty($_REQUEST["idProduit"])) { // nouveau produit
 
-            if (empty($imageName)) {
+            if (empty($imageName)) { #test si il y a une image pour le produit
                 $msgErreurs = ["veiller ajouter une image pour le produit"];
                 include_once("vues/v_erreurs.php");
+                #si le formulaire n'est pas complais on renvois l'utilisateur sur le formulaire de modification avec les champs préremplis
+                $categories = $this->modeleBack->getLesCategories();
+                $prix = (!empty($_REQUEST["prix"])) ? $_REQUEST["prix"] : "";
+                $nom = (!empty($_REQUEST["nom"])) ? $_REQUEST["nom"] : "";
+                $contenance = (!empty($_REQUEST["contenance"])) ? $_REQUEST["contenance"] : "";
+                $description = (!empty($_REQUEST["description"])) ? $_REQUEST["description"] : "";
+                $unites = $this->modeleBack->getLesUnites();
+                $idUnite = (!empty($_REQUEST["unite"])) ? $_REQUEST["unite"] : 2;
+                $idCategorie = (!empty($_REQUEST["idCategorie"])) ? $_REQUEST["idCategorie"] : 1;
+                $marques = $this->modeleBack->getMarques();
+                $idMarque = (!empty($_REQUEST["marque"])) ? $_REQUEST["marque"] : 1;
                 include_once("vues/v_modifProduit.php");
                 return;
             }
 
-            $this->modeleBack->creerProduit( #TODO : faire évoluer le formulaire pour afficher une list déterminer de marque
+            $this->modeleBack->creerProduit(
                 $_REQUEST["description"],
                 $_REQUEST["prix"],
                 $imageName,
@@ -152,7 +174,15 @@ public function confirmchangeOrAddProduit(): void {
                 $_REQUEST["unite"]
             );
         }
-        header("Location: index.php?uc=voirProduits&action=nosProduits&categorie=".$_REQUEST["idCategorie"]);
+        header("Location: index.php?uc=voirProduits&action=voirProduits&categorie=".$_REQUEST["idCategorie"]);
+    } else {
+        header("Location: index.php");
+    }
+}
+public function supprimerProduit(string $idProduit, string $idCategorie): void{
+    if (!empty($_SESSION["admin"])) {
+        $this->modeleBack->supprimerProduit($idProduit);
+        header("Location: index.php?uc=voirProduits&action=voirProduits&categorie=".$idCategorie);
     } else {
         header("Location: index.php");
     }
