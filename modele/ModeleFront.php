@@ -95,6 +95,24 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	public function getCategorie($id)
+	{
+		try 
+		{
+	    $req='select id, libelle FROM categorie where id = ? ';
+		$res = $this->executerRequete($req, [$id]);
+		$produit = $res->fetch();
+		return $produit; 
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+	}
+
+	
+
 	/**
 	 * Retourne un id qui n'a pas encore été utilisé pour un produit de la catégorie passée en paramètre
 	 *

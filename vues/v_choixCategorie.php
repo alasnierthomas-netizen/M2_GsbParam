@@ -4,6 +4,7 @@
 {
 	?>
 	<a class="btn btn-success" href="index.php?uc=admin&action=changeOrAddProduit">ajouter un produit</a>
+	<a class="btn btn-success" href="index.php?uc=admin&action=ajouteCategorie">ajouter une catégorie</a>
 
 <?php } ?>
 	<?php include_once('v_message.php');?>
