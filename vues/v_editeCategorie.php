@@ -13,7 +13,8 @@
                         </div>
 
                         <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-4">
-                            <a href="index.php?uc=voirProduits&action=voirCategories" class="btn btn-outline-secondary btn-lg">Annuler</a>
+                            <a href="index.php?uc=voirProduits&action=nosProduits" class="btn btn-outline-secondary btn-lg">Annuler</a> <?php #TODO :trouver un moyen de renvoiller a la page d'avent ?>
+                            <a href="index.php?uc=admin&action=confirmSupprimerCategorie&idCategorie=<?= htmlspecialchars($id) ?>" class="btn btn-outline-danger btn-lg">Supprimer</a>
                             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
                         </div>
                     </form>

@@ -266,4 +266,21 @@ class ControleurAdmin{
         }
     }
     #TODO : ajouter une fonction pour suprimer des catégories et l'empécher de suprimer une catégorie qui contient des produits
+
+    public function supprimerCategorie(string $idCategorie): void{
+        if (!empty($_SESSION["admin"])) {
+            if ($this->modeleBack->getLesProduitsDeCategorie($idCategorie) != false)
+            {
+                $msgErreurs = ["veiller d'abord supprimer les produits de cette catégorie"];
+                include_once("vues/v_erreurs.php");
+                include_once("vues/v_choixCategorie.php");
+                return;
+            }
+
+            $this->modeleBack->supprimerCategorie($idCategorie);
+            header("Location: index.php?uc=voirProduits&action=voirProduits");
+        } else {
+            header("Location: index.php");
+        }
+    }
 }

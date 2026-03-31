@@ -119,7 +119,7 @@ class ModeleFront extends Modele{
 	 * @param string $idCategorie l'id de la catégorie
 	 * @return string un id de produit unique pour la catégorie passée en paramètre
 	*/
-	public function creerIdProduit($idCategorie) #TODO : probléme, on vois aprés
+	public function creerIdProduit($idCategorie)
 	{
 		try 
 		{

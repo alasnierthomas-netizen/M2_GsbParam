@@ -100,4 +100,8 @@ class ModeleBack extends ModeleFront{
     {
         $this->executerRequete("UPDATE categorie SET libelle = ?, id = ? WHERE id = ?", [$libelle, $newId, $oldId]);
     }
+
+    public function supprimerCategorie(string $idCategorie): void{
+        $this->executerRequete("DELETE FROM categorie WHERE id = ?", [$idCategorie]);
+    }
 }

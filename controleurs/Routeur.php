@@ -72,6 +72,7 @@ class Routeur{
                     case "confirmModifierCategorie": {$this->ctrlAdmin->confirmModifierCategorie(); break;}
                     case "ajouteOuEditeCategorie": {$this->ctrlAdmin->ajouteCategorie(); break;}
                     case "confirmAjouteCategorie": {$this->ctrlAdmin->confirmAjouteCategorie(); break;}
+                    case "confirmSupprimerCategorie": {$this->ctrlAdmin->supprimerCategorie($_REQUEST["idCategorie"]); break;}
                 }
             }
 		break; 
