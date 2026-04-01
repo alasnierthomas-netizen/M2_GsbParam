@@ -267,7 +267,6 @@ class ControleurAdmin{
             header("Location: index.php");
         }
     }
-    #TODO : ajouter une fonction pour suprimer des catégories et l'empécher de suprimer une catégorie qui contient des produits
 
     public function supprimerCategorie(string $idCategorie): void{
         if (!empty($_SESSION["admin"])) {

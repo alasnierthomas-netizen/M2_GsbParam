@@ -307,10 +307,25 @@ class ModeleFront extends Modele{
 		$req = "insert into commande values (?, ?, ?, ?, ?, ?, ?)";
 		$res = $this->executerRequete($req, [$idCommande, $date, $nom, $rue, $cp, $ville, $mail]);
 		// insertion produits commandés
-		foreach($lesIdProduit as $unIdProduit)
+		$numericIndex = array_keys($lesIdProduit) === range(0, count($lesIdProduit)-1);
+		foreach($lesIdProduit as $cle => $valeur)
 		{
-			$req = "insert into contenir values (?, ?)";
-			$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
+			if($numericIndex)
+			{
+				$unIdProduit = $valeur;
+				$req = "insert into contenir values (?, ?)";
+				$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
+			}
+			else
+			{
+				$unIdProduit = $cle;
+				$quantite = (int)$valeur;
+				for($i=0; $i<$quantite; $i++)
+				{
+					$req = "insert into contenir values (?, ?)";
+					$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
+				}
+			}
 		}
 		return $res;
 		}

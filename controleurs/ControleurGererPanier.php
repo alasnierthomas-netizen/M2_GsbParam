@@ -63,20 +63,19 @@ class ControleurGererPanier{
 	 * ajoute le produit à la variable de session dans le cas où
 	 * où le produit n'a pas été trouvé
 	 
-	* @param Produit $idProduit Le produit à ajouter au panier 
+	* @param int $idProduit Le produit à ajouter au panier 
 	*/
 	function ajouterAuPanier($idProduit)
 	{
-		if(in_array($idProduit,$_SESSION['produits']))
+		if(isset($_SESSION['produits'][$idProduit]))
 		{
-			$msgErreurs[]='Ce produit est déjà dans le panier.';
-			include("vues/v_erreurs.php");
+			$_SESSION['produits'][$idProduit] += 1;
 		}
 		else
 		{
-			$_SESSION['produits'][]= $idProduit; // l'indice n'est pas précisé : il sera automatiquement mis à la fin
+			$_SESSION['produits'][$idProduit] = 1;
 		}
-		$this->voirPanier();
+		header("Location: index.php?uc=gererPanier&action=voirPanier");
 	}
 
 		/**
@@ -90,7 +89,10 @@ class ControleurGererPanier{
 	*/
 	function suprimerDuPanier($idProduit)
 	{
-		unset($_SESSION['produits'][array_search($idProduit, $_SESSION['produits'])]);
+		if(isset($_SESSION['produits'][$idProduit]))
+		{
+			unset($_SESSION['produits'][$idProduit]);
+		}
 		$this->voirPanier();
 	}
 		
@@ -103,8 +105,11 @@ class ControleurGererPanier{
 	*/
 	function getLesIdProduitsDuPanier()
 	{
-		return $_SESSION['produits'];
-
+		if(isset($_SESSION['produits']))
+		{
+			return array_keys($_SESSION['produits']);
+		}
+		return array();
 	}
 	/**
 	 * Retourne le nombre de produits du panier
@@ -119,18 +124,21 @@ class ControleurGererPanier{
 		$n = 0;
 		if(isset($_SESSION['produits']))
 		{
-		$n = count($_SESSION['produits']);
+			$n = array_sum($_SESSION['produits']);
 		}
 		return $n;
 	}
 	/**
 	 * Affiche le formulaire de commande
 	*/
-	function passerCommande()
+	function passerCommande() #TODO : modifier se contoller pour prendre en compte les edition du fomulaire (la qt des produits) et éviter la comande si on a pas les produits dans le panier
 	{
 		$n=$this->nbProduitsDuPanier();
 			if($n>0)
-			{   // les variables suivantes servent à l'affectation des attributs value du formulaire
+			{
+				var_dump($_SESSION['produits']);
+				var_dump($_REQUEST);
+				// les variables suivantes servent à l'affectation des attributs value du formulaire
 				// ici le formulaire doit être vide, quand il est erroné, le formulaire sera réaffiché pré-rempli
 				$nom ='';$rue='';$ville ='';$cp='';$mail='';
 				include ("vues/v_commande.php");
@@ -158,8 +166,8 @@ class ControleurGererPanier{
 			}
 			else
 			{
-				$lesIdProduits = $this->getLesIdProduitsDuPanier();
-				$rep = $this->modeleFront->creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduits );
+				$lesProduitsDuPanier = isset($_SESSION['produits']) ? $_SESSION['produits'] : array();
+				$rep = $this->modeleFront->creerCommande($nom,$rue,$cp,$ville,$mail, $lesProduitsDuPanier );
 				if ($rep)
 				{
 					$message = "La commande a été enregistrée. Merci de votre visite.";
