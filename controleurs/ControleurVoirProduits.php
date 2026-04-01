@@ -24,7 +24,10 @@ class ControleurVoirProduits{
 	 * si $categ contient un idCategorie affiche les produits d'une catégorie
 	 * @param $categ un identifiant de la catégorie de produits à afficher
 	*/
-    public function voirProduits($categ = null){
+    public function voirProduits($categ = null, $msgErreurs = null){
+        if (empty($msgErreurs) && !empty($_REQUEST['msgErreurs'])) {
+            $msgErreurs = $_REQUEST['msgErreurs'];
+        }
         if($categ == null)
         {
             $lesProduits=$this->modeleFront->getLesProduits();
@@ -40,7 +43,7 @@ class ControleurVoirProduits{
             else{
                 $message = 'categorie inexistant';
             }
-                    include("vues/v_choixCategorie.php");
+            include("vues/v_choixCategorie.php");
         }
         include("vues/v_produits.php");
     }

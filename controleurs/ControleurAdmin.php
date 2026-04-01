@@ -227,7 +227,9 @@ class ControleurAdmin{
             {
                 $msgErreurs = ["Les deux premières lettres de la catégorie sont également celles d’une autre catégorie, merci de les changer."];
                 include_once("vues/v_erreurs.php");
-                include_once("vues/v_ajouteOuEditeCategorie.php");
+                $libelle = (!empty($_REQUEST["libelle"])) ? $_REQUEST["libelle"] : "";
+                $id = (!empty($_REQUEST["idCategorie"])) ? $_REQUEST["idCategorie"] : "";
+                include_once("vues/v_editeCategorie.php");
                 return;
             }
             $this->modeleBack->editCategorie($_REQUEST["idCategorie"], $_REQUEST["libelle"], $id);
@@ -273,7 +275,10 @@ class ControleurAdmin{
             {
                 $msgErreurs = ["veiller d'abord supprimer les produits de cette catégorie"];
                 include_once("vues/v_erreurs.php");
+                $lesCategories = $this->modeleBack->getLesCategories();
+                $lesProduits = $this->modeleBack->getLesProduitsDeCategorie($idCategorie);
                 include_once("vues/v_choixCategorie.php");
+                include_once("vues/v_produits.php");
                 return;
             }
 

@@ -41,7 +41,7 @@ class Routeur{
             {
                 case null :
                 case 'voirCategories' : {$this->ctrlVoirProduits->voirCategories();break;}
-                case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH");break;}
+                case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH", (isset($_REQUEST['msgErreurs'])) ? $_REQUEST['msgErreurs'] : null);break;}
                 case 'nosProduits' : {$this->ctrlVoirProduits->voirProduits();break;}
             }; break;
         case 'gererPanier' :

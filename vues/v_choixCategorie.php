@@ -7,7 +7,9 @@
 	<a class="btn btn-success" href="index.php?uc=admin&action=ajouteCategorie">ajouter une catégorie</a>
 
 <?php } ?>
-	<?php include_once('v_message.php');?>
+	<?php if (!empty($message)): ?>
+		<?php include_once('v_message.php'); ?>
+	<?php endif; ?>
 <?php
 include ('v_categories.php');
 ?>
