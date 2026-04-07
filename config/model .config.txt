@@ -1,6 +1,0 @@
-<?php
-define('USER','');
-define('PASSWD','');
-define('SERVER','localhost:3307');
-define('BASE','m2_gsb_param');
-?>

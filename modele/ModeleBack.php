@@ -30,14 +30,10 @@ class ModeleBack extends ModeleFront{
 	*/
     public function getAdmin(string $login, string $password) : int | false
     {
-        $req = $this->executerRequete("SELECT id, mdp FROM administrateur WHERE nom = ?", [$login]);
+        $req = $this->executerRequete("SELECT id FROM administrateur WHERE nom = ? and mdp = ?", [$login, $password]);
         $rep = $req->fetch();
         if($rep != false){
-            if(password_verify($password, $rep["mdp"])){
-                $rep = $rep["id"];
-            } else {
-                $rep = false;
-            }
+            $rep = $rep["id"];
         }
         return $rep;
     }
@@ -79,33 +75,5 @@ class ModeleBack extends ModeleFront{
         $this->executerRequete("DELETE FROM produit WHERE id = ?", [$idProduit]);
     }
 
-    public function getAbreviationsCategorie(string $libelle)
-    {
-        $result = $libelle[0].$libelle[1];
-        return strtoupper($result);
-    }
 
-    public function ajouteCategorie($id, $libelle)
-    {
-        try 
-		{
-	    $req='INSERT INTO categorie (id, libelle) VALUES (?, ?)';
-		$res = $this->executerRequete($req, [$id, $libelle]);
-		$produit = $res->fetch();
-		return $produit; 
-		} 
-		catch (PDOException $e) 
-		{
-        print "Erreur !: " . $e->getMessage();
-        die();
-		}
-    }
-    public function editCategorie(string $oldId, string $libelle, string $newId): void
-    {
-        $this->executerRequete("UPDATE categorie SET libelle = ?, id = ? WHERE id = ?", [$libelle, $newId, $oldId]);
-    }
-
-    public function supprimerCategorie(string $idCategorie): void{
-        $this->executerRequete("DELETE FROM categorie WHERE id = ?", [$idCategorie]);
-    }
 }

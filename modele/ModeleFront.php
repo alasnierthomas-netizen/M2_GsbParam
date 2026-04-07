@@ -119,31 +119,13 @@ public function insertClient(int $id, string $login, string $password) : bool
 		}
 	}
 
-	public function getCategorie($id)
-	{
-		try 
-		{
-	    $req='select id, libelle FROM categorie where id = ? ';
-		$res = $this->executerRequete($req, [$id]);
-		$produit = $res->fetch();
-		return $produit; 
-		} 
-		catch (PDOException $e) 
-		{
-        print "Erreur !: " . $e->getMessage();
-        die();
-		}
-	}
-
-	
-
 	/**
 	 * Retourne un id qui n'a pas encore été utilisé pour un produit de la catégorie passée en paramètre
 	 *
 	 * @param string $idCategorie l'id de la catégorie
 	 * @return string un id de produit unique pour la catégorie passée en paramètre
 	*/
-	public function creerIdProduit($idCategorie)
+	public function creerIdProduit($idCategorie) #TODO : probléme, on vois aprés
 	{
 		try 
 		{
@@ -331,25 +313,10 @@ public function insertClient(int $id, string $login, string $password) : bool
 		$req = "insert into commande values (?, ?, ?, ?, ?, ?, ?)";
 		$res = $this->executerRequete($req, [$idCommande, $date, $nom, $rue, $cp, $ville, $mail]);
 		// insertion produits commandés
-		$numericIndex = array_keys($lesIdProduit) === range(0, count($lesIdProduit)-1);
-		foreach($lesIdProduit as $cle => $valeur)
+		foreach($lesIdProduit as $unIdProduit)
 		{
-			if($numericIndex)
-			{
-				$unIdProduit = $valeur;
-				$req = "insert into contenir values (?, ?)";
-				$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
-			}
-			else
-			{
-				$unIdProduit = $cle;
-				$quantite = (int)$valeur;
-				for($i=0; $i<$quantite; $i++)
-				{
-					$req = "insert into contenir values (?, ?)";
-					$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
-				}
-			}
+			$req = "insert into contenir values (?, ?)";
+			$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
 		}
 		return $res;
 		}

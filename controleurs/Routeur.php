@@ -45,7 +45,7 @@ class Routeur{
             {
                 case null :
                 case 'voirCategories' : {$this->ctrlVoirProduits->voirCategories();break;}
-                case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH", (isset($_REQUEST['msgErreurs'])) ? $_REQUEST['msgErreurs'] : null);break;}
+                case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH");break;}
                 case 'nosProduits' : {$this->ctrlVoirProduits->voirProduits();break;}
             }; break;
         case 'gererPanier' :
@@ -71,12 +71,6 @@ class Routeur{
                     case 'changeOrAddProduit': {$this->ctrlAdmin->changeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]);break;}
                     case 'supprimerProduit': {$this->ctrlAdmin->supprimerProduit($_REQUEST["id"], $_REQUEST["categorie"]);break;}
                     case "confirmchangeOrAddProduit": {$this->ctrlAdmin->confirmchangeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]); break;}
-                    case "ajouteCategorie": {$this->ctrlAdmin->ajouteCategorie(); break;}
-                    case "modifierCategorie": {$this->ctrlAdmin->modifierCategorie($_REQUEST["categorie"]); break;}
-                    case "confirmModifierCategorie": {$this->ctrlAdmin->confirmModifierCategorie(); break;}
-                    case "ajouteOuEditeCategorie": {$this->ctrlAdmin->ajouteCategorie(); break;}
-                    case "confirmAjouteCategorie": {$this->ctrlAdmin->confirmAjouteCategorie(); break;}
-                    case "confirmSupprimerCategorie": {$this->ctrlAdmin->supprimerCategorie($_REQUEST["idCategorie"]); break;}
                 }
             }
 		break;
