@@ -42,6 +42,14 @@ class ModeleBack extends ModeleFront{
         return $rep;
     }
 
+    public function getProduitsFaiblesStock()
+    {
+        $req = "SELECT id, nom, stock, idCategorie, prix FROM produit ORDER BY stock ASC LIMIT 10";
+        $res = $this->executerRequete($req);
+        $lesProduits = $res->fetchAll(PDO::FETCH_ASSOC);
+        return $lesProduits;
+    }
+
     #TODO: demander a join comment marche la surcharge en php (y en a probablement pas)
     public function creerProduit(string $description, float $prix, string $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
     {

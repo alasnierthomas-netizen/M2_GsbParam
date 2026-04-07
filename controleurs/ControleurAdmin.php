@@ -59,6 +59,16 @@ class ControleurAdmin{
         header("Location: index.php");
     }
 
+    public function produitsFaibleStock(): void
+    {
+        if (!empty($_SESSION["admin"])) {
+            $lesProduitsFaibleStock = $this->modeleBack->getProduitsFaiblesStock();
+            include_once("vues/v_produitsFaibleStock.php");
+        } else {
+            header("Location: index.php");
+        }
+    }
+
     public function changeOrAddProduit($idProduit): void{ 
         if (!empty($_SESSION["admin"]))
         {

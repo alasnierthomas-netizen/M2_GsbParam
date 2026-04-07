@@ -17,6 +17,7 @@
                 <li><a href="index.php?uc=admin&action=connexion" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">connexion</a></li>
               <?php }
               else { ?>
+                <li><a href="index.php?uc=admin&action=produitsFaibleStock" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">stocks faibles</a></li>
                 <li><a href="index.php?uc=admin&action=deconnexion" class="nav-link rounded-pill px-3 mx-1 fw-bold link-dark">deconnexion</a></li>
               <?php } ?>
             </ul>

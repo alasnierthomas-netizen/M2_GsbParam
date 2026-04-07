@@ -67,6 +67,7 @@ class Routeur{
                     case 'changeOrAddProduit': {$this->ctrlAdmin->changeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]);break;}
                     case 'supprimerProduit': {$this->ctrlAdmin->supprimerProduit($_REQUEST["id"], $_REQUEST["categorie"]);break;}
                     case "confirmchangeOrAddProduit": {$this->ctrlAdmin->confirmchangeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]); break;}
+                    case "produitsFaibleStock": {$this->ctrlAdmin->produitsFaibleStock(); break;}
                     case "ajouteCategorie": {$this->ctrlAdmin->ajouteCategorie(); break;}
                     case "modifierCategorie": {$this->ctrlAdmin->modifierCategorie($_REQUEST["categorie"]); break;}
                     case "confirmModifierCategorie": {$this->ctrlAdmin->confirmModifierCategorie(); break;}
