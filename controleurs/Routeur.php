@@ -3,6 +3,7 @@ require_once 'controleurs/ControleurVoirProduits.php';
 require_once 'controleurs/ControleurAccueil.php';
 require_once 'controleurs/ControleurGererPanier.php';
 require_once 'controleurs/ControleurAdmin.php';
+require_once 'controleurs/Client.php';
 /**
  * @class Routeur
  * @brief gère les routes (actions à exécuter en fonction des urls)
@@ -13,6 +14,8 @@ class Routeur{
     private $ctrlAccueil;
     private $ctrlGererPanier;
     private $ctrlAdmin;
+
+    private $ctrlClient;
     
     public function __construct(){
         
@@ -20,6 +23,7 @@ class Routeur{
         $this->ctrlAccueil=new ControleurAccueil();
         $this->ctrlGererPanier=new ControleurGererPanier();
         $this->ctrlAdmin=new ControleurAdmin();
+        $this->ctrlClient=new ControleurClient();
     }
     /** recupère les paramètres de l'url et active les contrôleurs nécessaires
     */
@@ -65,10 +69,24 @@ class Routeur{
                     case 'confirmConnexion': {$this->ctrlAdmin->confirmConnexion();break;}
                     case 'deconnexion': {$this->ctrlAdmin->deconnexion();break;}
                     case 'changeOrAddProduit': {$this->ctrlAdmin->changeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]);break;}
+                    case 'supprimerProduit': {$this->ctrlAdmin->supprimerProduit($_REQUEST["id"], $_REQUEST["categorie"]);break;}
                     case "confirmchangeOrAddProduit": {$this->ctrlAdmin->confirmchangeOrAddProduit((empty($_REQUEST["produit"])) ? null : $_REQUEST["produit"]); break;}
                 }
             }
-		break; 
+		break;
+        case 'client' :
+            {
+                switch ($action)
+                {
+                    case null :
+                    case 'connexion': {$this->ctrlClient->connexion();break;}
+                    case 'confirmConnexion': {$this->ctrlClient->confirmConnexion();break;}
+                    case 'deconnexionclient': {$this->ctrlClient->deconnexion();break;}
+                    case 'inscription': {$this->ctrlClient->confirmInscription();break;}
+
+                }
+
+            }break; 
     }
     }
 }

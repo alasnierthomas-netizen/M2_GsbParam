@@ -14,6 +14,30 @@ require_once 'modele/Modele.php';
  */
 class ModeleFront extends Modele{
 
+public function getClient(string $login, string $password) : int | false
+    {
+        $req = $this->executerRequete("SELECT id FROM users WHERE login = ? and password = ?", [$login, $password]);
+        $rep = $req->fetch();
+        if($rep != false){
+            $rep = $rep["id"];
+        }
+        return $rep;
+    }
+public function insertClient(int $id, string $login, string $password) : bool 
+{
+    try {
+        // On définit la requête SQL
+        $sql = "INSERT INTO `users`(`id`, `login`, `password`, `date_creation`) VALUES (?, ?, ?, NOW())";
+        
+        // On l'exécute avec les paramètres (NOW() remplace CURRENT_DATE() en SQL)
+        $this->executerRequete($sql, [$id, $login, $password]);
+        
+        return true;
+    } catch (PDOException $e) {
+        // En cas d'erreur (ex: ID déjà existant)
+        return false;
+    }
+}
 
 	/**
 	 * Retourne les info de l'unité en fonction de sont id
@@ -105,10 +129,10 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-			$num = 0;
+			$num = -1;
 			do{
-				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
 				$num++;
+				$res = $this->executerRequete("SELECT * FROM produit WHERE id = ?", [$idCategorie[0].$num]);
 			}while($res->fetch() != false);
 			return $idCategorie[0].$num;
 		}
