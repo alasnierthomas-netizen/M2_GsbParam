@@ -1,11 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ob_end_flush();
-error_reporting(E_ALL);
-
-
-// ... reste de ton code
 /** 
  * Mission : architecture MVC GsbParam
  
