@@ -131,13 +131,11 @@ class ControleurGererPanier{
 	/**
 	 * Affiche le formulaire de commande
 	*/
-	function passerCommande() #TODO : modifier se contoller pour prendre en compte les edition du fomulaire (la qt des produits) et éviter la comande si on a pas les produits dans le panier
+	function passerCommande() 
 	{
 		$n=$this->nbProduitsDuPanier();
 			if($n>0)
 			{
-				var_dump($_SESSION['produits']);
-				var_dump($_REQUEST);
 				// les variables suivantes servent à l'affectation des attributs value du formulaire
 				// ici le formulaire doit être vide, quand il est erroné, le formulaire sera réaffiché pré-rempli
 				$nom ='';$rue='';$ville ='';$cp='';$mail='';
