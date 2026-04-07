@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Apr 01, 2026 at 01:36 PM
--- Server version: 11.5.2-MariaDB
--- PHP Version: 8.3.14
+-- Hôte : 127.0.0.1:3307
+-- Généré le : mar. 07 avr. 2026 à 06:57
+-- Version du serveur : 11.5.2-MariaDB
+-- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `alasnier_m2_gsb_param`
+-- Base de données : `alasnier_m2_gsb_param`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrateur`
+-- Structure de la table `administrateur`
 --
 
 DROP TABLE IF EXISTS `administrateur`;
@@ -36,17 +36,17 @@ CREATE TABLE IF NOT EXISTS `administrateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `administrateur`
+-- Déchargement des données de la table `administrateur`
 --
 
 INSERT INTO `administrateur` (`id`, `nom`, `mdp`) VALUES
-('1', 'LeBoss', 'TheBest$147#'),
-('2', 'LeChefProjet', 'NearlyTheBest$280@');
+('1', 'LeBoss', '$2y$10$S9rW4CVQ1.dlyb1PJZwQ1u8Qy1Gkm3EiCX1lL3g7qgxDXO9xyb0le'),
+('2', 'LeChefProjet', '$2y$10$lbYKMvo3VE0/0SvleHTE9e2zqnfAYFNoBTT.XKyfMo7f0x3M9kfGW');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorie`
+-- Structure de la table `categorie`
 --
 
 DROP TABLE IF EXISTS `categorie`;
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `categorie`
+-- Déchargement des données de la table `categorie`
 --
 
 INSERT INTO `categorie` (`id`, `libelle`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `categorie` (`id`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commande`
+-- Structure de la table `commande`
 --
 
 DROP TABLE IF EXISTS `commande`;
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `commande`
+-- Déchargement des données de la table `commande`
 --
 
 INSERT INTO `commande` (`id`, `dateCommande`, `nomPrenomClient`, `adresseRueClient`, `cpClient`, `villeClient`, `mailClient`) VALUES
@@ -95,7 +95,7 @@ INSERT INTO `commande` (`id`, `dateCommande`, `nomPrenomClient`, `adresseRueClie
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contenir`
+-- Structure de la table `contenir`
 --
 
 DROP TABLE IF EXISTS `contenir`;
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `contenir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `contenir`
+-- Déchargement des données de la table `contenir`
 --
 
 INSERT INTO `contenir` (`idCommande`, `idProduit`, `qt`) VALUES
@@ -122,7 +122,7 @@ INSERT INTO `contenir` (`idCommande`, `idProduit`, `qt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `marque`
+-- Structure de la table `marque`
 --
 
 DROP TABLE IF EXISTS `marque`;
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `marque` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `marque`
+-- Déchargement des données de la table `marque`
 --
 
 INSERT INTO `marque` (`id`, `nom`) VALUES
@@ -146,7 +146,7 @@ INSERT INTO `marque` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produit`
+-- Structure de la table `produit`
 --
 
 DROP TABLE IF EXISTS `produit`;
@@ -163,11 +163,12 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `unite` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `I_FK_Produit_CATEGORIE` (`idCategorie`),
-  KEY `fk_unite` (`unite`)
+  KEY `fk_unite` (`unite`),
+  KEY `fk_produit_marque` (`marque`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `produit`
+-- Déchargement des données de la table `produit`
 --
 
 INSERT INTO `produit` (`id`, `description`, `prix`, `image`, `idCategorie`, `nom`, `marque`, `stock`, `contenance`, `unite`) VALUES
@@ -194,7 +195,7 @@ INSERT INTO `produit` (`id`, `description`, `prix`, `image`, `idCategorie`, `nom
 -- --------------------------------------------------------
 
 --
--- Table structure for table `unite`
+-- Structure de la table `unite`
 --
 
 DROP TABLE IF EXISTS `unite`;
@@ -205,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `unite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `unite`
+-- Déchargement des données de la table `unite`
 --
 
 INSERT INTO `unite` (`id`, `libelle`) VALUES
@@ -216,20 +217,21 @@ INSERT INTO `unite` (`id`, `libelle`) VALUES
 (5, 'kg');
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `contenir`
+-- Contraintes pour la table `contenir`
 --
 ALTER TABLE `contenir`
   ADD CONSTRAINT `contenir_ibfk_1` FOREIGN KEY (`idCommande`) REFERENCES `commande` (`id`),
   ADD CONSTRAINT `contenir_ibfk_2` FOREIGN KEY (`idProduit`) REFERENCES `produit` (`id`);
 
 --
--- Constraints for table `produit`
+-- Contraintes pour la table `produit`
 --
 ALTER TABLE `produit`
+  ADD CONSTRAINT `fk_produit_marque` FOREIGN KEY (`marque`) REFERENCES `marque` (`id`),
   ADD CONSTRAINT `fk_unite` FOREIGN KEY (`unite`) REFERENCES `unite` (`id`),
   ADD CONSTRAINT `produit_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categorie` (`id`);
 COMMIT;

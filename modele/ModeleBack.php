@@ -30,10 +30,14 @@ class ModeleBack extends ModeleFront{
 	*/
     public function getAdmin(string $login, string $password) : int | false
     {
-        $req = $this->executerRequete("SELECT id FROM administrateur WHERE nom = ? and mdp = ?", [$login, $password]);
+        $req = $this->executerRequete("SELECT id, mdp FROM administrateur WHERE nom = ?", [$login]);
         $rep = $req->fetch();
         if($rep != false){
-            $rep = $rep["id"];
+            if(password_verify($password, $rep["mdp"])){
+                $rep = $rep["id"];
+            } else {
+                $rep = false;
+            }
         }
         return $rep;
     }
