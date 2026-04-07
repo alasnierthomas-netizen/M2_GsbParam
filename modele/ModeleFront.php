@@ -170,7 +170,7 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-	    $req='select id, description, prix, image, idCategorie from produit where idCategorie =? ';
+	    $req='select id, description, prix, image, idCategorie, stock from produit where idCategorie =? ';
 		$res = $this->executerRequete($req, [$idCategorie]);
 		$lesLignes = $res->fetchAll(PDO::FETCH_OBJ);
 		return $lesLignes; 
@@ -237,7 +237,7 @@ class ModeleFront extends Modele{
 		{
 			foreach($desIdsProduit as $unIdProduit)
 			{
-				$req = 'select id, description, prix, image, idCategorie from produit where id = ? ';
+				$req = 'select id, description, prix, image, idCategorie, stock from produit where id = ? ';
 				$res = $this->executerRequete($req, [$unIdProduit]);
 				$unProduit = $res->fetch(PDO::FETCH_OBJ);
 				$lesProduits[] = $unProduit;
@@ -268,7 +268,7 @@ class ModeleFront extends Modele{
 	{
 		try 
 		{
-	    $req='select id, description, prix, image from produit';
+	    $req='select id, description, prix, image, stock from produit';
 		$res = $this->executerRequete($req);
 		$lesLignes = $res->fetchAll(PDO::FETCH_OBJ);
 		return $lesLignes; 

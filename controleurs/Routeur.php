@@ -75,7 +75,7 @@ class Routeur{
                     case "confirmSupprimerCategorie": {$this->ctrlAdmin->supprimerCategorie($_REQUEST["idCategorie"]); break;}
                 }
             }
-		break; 
+		break;
     }
-    }
+}
 }

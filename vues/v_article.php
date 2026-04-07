@@ -15,6 +15,7 @@
 		<div class="photoCard"><img src="<?= $article->image ?>" alt="image descriptive" /></div>
 		<div class="descrCard"><?= $article->description ?></div>
 		<div class="prixCard"><?= $article->prix."€" ?></div>
+        <div class="qtCard">quantité: <?= $article->stock ?></div>
 	</div>
 	<div class="imgCard">
 		<a href="<?= $lienActionPrincipale ?>" <?php if(isset($confirmMessage)) echo "onclick=\"return confirm('{$confirmMessage}');\""; ?>>

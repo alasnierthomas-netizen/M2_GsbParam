@@ -62,11 +62,23 @@ class ControleurGererPanier{
 	 * Teste si le produit est déjà dans la variable session 
 	 * ajoute le produit à la variable de session dans le cas où
 	 * où le produit n'a pas été trouvé
+	 * Vérifie également que le stock du produit est supérieur à 0
 	 
 	* @param int $idProduit Le produit à ajouter au panier 
 	*/
 	function ajouterAuPanier($idProduit)
 	{
+		// Récupère les informations du produit pour vérifier le stock
+		$produit = $this->modeleFront->getProduits($idProduit);
+		
+		// Vérifie que le stock n'est pas nul
+		if($produit['stock'] <= 0)
+		{
+			$message = "Impossible d'ajouter ce produit au panier. Le stock est épuisé !";
+			include("vues/v_message.php");
+			return;
+		}
+		
 		if(isset($_SESSION['produits'][$idProduit]))
 		{
 			$_SESSION['produits'][$idProduit] += 1;
