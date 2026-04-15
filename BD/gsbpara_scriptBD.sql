@@ -75,22 +75,45 @@ DROP TABLE IF EXISTS `commande`;
 CREATE TABLE IF NOT EXISTS `commande` (
   `id` varchar(32) NOT NULL,
   `dateCommande` date DEFAULT NULL,
-  `nomPrenomClient` varchar(50) DEFAULT NULL,
-  `adresseRueClient` varchar(50) DEFAULT NULL,
-  `cpClient` char(5) DEFAULT NULL,
-  `villeClient` varchar(50) DEFAULT NULL,
-  `mailClient` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `idClient` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `I_FK_COMMANDE_CLIENT` (`idClient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
 -- Déchargement des données de la table `commande`
 --
 
-INSERT INTO `commande` (`id`, `dateCommande`, `nomPrenomClient`, `adresseRueClient`, `cpClient`, `villeClient`, `mailClient`) VALUES
-('1101461660', '2024-09-01', 'Dupont Jacques', '12, rue haute', '75001', 'Paris', 'dupont@wanadoo.fr'),
-('1101461665', '2024-09-01', 'Durant Yves', '23, rue des ombres', '75012', 'Paris', 'durant@free.fr'),
-('1101461666', '2026-03-16', 'thomas', 'jsp rue des marguoulette', '60000', 'orléans', 'patrique@proton.com');
+INSERT INTO `commande` (`id`, `dateCommande`, `idClient`) VALUES
+('1101461660', '2024-09-01', 1),
+('1101461665', '2024-09-01', 2),
+('1101461666', '2026-03-16', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomPrenom` varchar(50) NOT NULL,
+  `adresseRue` varchar(50) DEFAULT NULL,
+  `cp` char(5) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Déchargement des données de la table `client`
+--
+
+INSERT INTO `client` (`id`, `nomPrenom`, `adresseRue`, `cp`, `ville`, `mail`) VALUES
+(1, 'Dupont Jacques', '12, rue haute', '75001', 'Paris', 'dupont@wanadoo.fr'),
+(2, 'Durant Yves', '23, rue des ombres', '75012', 'Paris', 'durant@free.fr'),
+(3, 'thomas', 'jsp rue des marguoulette', '60000', 'orléans', 'patrique@proton.com');
 
 -- --------------------------------------------------------
 
@@ -219,6 +242,12 @@ INSERT INTO `unite` (`id`, `libelle`) VALUES
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD CONSTRAINT `fk_commande_client` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`);
 
 --
 -- Contraintes pour la table `contenir`
