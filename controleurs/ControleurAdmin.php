@@ -297,4 +297,22 @@ class ControleurAdmin{
             header("Location: index.php");
         }
     }
+
+    public function voirCommandes(): void{
+        if (!empty($_SESSION["admin"])) {
+            $commandes = $this->modeleBack->getCommandes();
+            include_once("vues/v_commandes.php");
+        } else {
+            header("Location: index.php");
+        }
+    }
+
+    public function supprimerCommande(string $idCommande): void{
+        if (!empty($_SESSION["admin"])) {
+            $this->modeleBack->supprimerCommande($idCommande);
+            header("Location: index.php?uc=admin&action=voirCommandes");
+        } else {
+            header("Location: index.php");
+        }
+    }
 }

@@ -116,4 +116,18 @@ class ModeleBack extends ModeleFront{
     public function supprimerCategorie(string $idCategorie): void{
         $this->executerRequete("DELETE FROM categorie WHERE id = ?", [$idCategorie]);
     }
+
+    public function getCommandes(): array{
+        $res = $this->executerRequete("SELECT c.id, c.dateCommande, cl.nomPrenom , cl.adresseRue
+        FROM commande c 
+        JOIN client cl ON c.idClient = cl.id 
+        ORDER BY c.dateCommande DESC");
+        $commandes = $res->fetchAll(PDO::FETCH_ASSOC);
+        return $commandes;
+    }
+
+    public function supprimerCommande(string $idCommande): void{
+        $this->executerRequete("DELETE FROM contenir WHERE idCommande = ?", [$idCommande]);
+        $this->executerRequete("DELETE FROM commande WHERE id = ?", [$idCommande]);
+    }
 }
