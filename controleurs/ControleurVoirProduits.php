@@ -47,6 +47,26 @@ class ControleurVoirProduits{
         }
         include("vues/v_produits.php");
     }
+
+    /**
+     * affiche une vue du detail d'un produit spécifique
+     * @param mixed $idProduit
+     * @return void
+     */
+    public function voirProduitDetail($idProduit){
+        $produit = $this->modeleFront->getLesInfosProduit($idProduit);
+        if($produit != false){
+            $marque = $this->modeleFront->getMarque($produit->marque);
+            $categorie = $this->modeleFront->getCategorie($produit->idCategorie);
+            $lesProduits = $this->modeleFront->getProduitsAssocies($produit->id);
+            include("vues/v_produitDetail.php");
+        }
+        else{
+            $msgErreurs = "produit inexistant";
+            $this->voirProduits(null, $msgErreurs);
+        }
+    }
+
 	/**
 	 * Affiche le menu à gauche contenant les catégories
 	*/

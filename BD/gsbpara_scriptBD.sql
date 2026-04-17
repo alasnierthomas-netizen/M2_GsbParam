@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mar. 07 avr. 2026 à 07:34
+-- Généré le : ven. 17 avr. 2026 à 13:49
 -- Version du serveur : 11.5.2-MariaDB
 -- Version de PHP : 8.3.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `alasnier_m2_gsb_param`
+-- Base de données : `m2_gsb_param`
 --
 
 -- --------------------------------------------------------
@@ -46,6 +46,32 @@ INSERT INTO `administrateur` (`id`, `nom`, `mdp`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `associe`
+--
+
+DROP TABLE IF EXISTS `associe`;
+CREATE TABLE IF NOT EXISTS `associe` (
+  `idProduit1` varchar(5) NOT NULL,
+  `idProduit2` varchar(5) NOT NULL,
+  PRIMARY KEY (`idProduit1`,`idProduit2`),
+  KEY `fk_associe_produit1` (`idProduit1`),
+  KEY `fk_associe_produit2` (`idProduit2`)
+) ;
+
+--
+-- Déchargement des données de la table `associe`
+--
+
+INSERT INTO `associe` (`idProduit1`, `idProduit2`) VALUES
+('c01', 'c03'),
+('c05', 'c01'),
+('c05', 'c03'),
+('f02', 'f05'),
+('p03', 'p02');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `categorie`
 --
 
@@ -64,6 +90,32 @@ INSERT INTO `categorie` (`id`, `libelle`) VALUES
 ('CH', 'Cheveux'),
 ('FO', 'Forme'),
 ('PS', 'Protection Solaire');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomPrenom` varchar(50) NOT NULL,
+  `adresseRue` varchar(50) DEFAULT NULL,
+  `cp` char(5) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Déchargement des données de la table `client`
+--
+
+INSERT INTO `client` (`id`, `nomPrenom`, `adresseRue`, `cp`, `ville`, `mail`) VALUES
+(1, 'Dupont Jacques', '12, rue haute', '75001', 'Paris', 'dupont@wanadoo.fr'),
+(2, 'Durant Yves', '23, rue des ombres', '75012', 'Paris', 'durant@free.fr'),
+(3, 'thomas', 'jsp rue des marguoulette', '60000', 'orléans', 'patrique@proton.com');
 
 -- --------------------------------------------------------
 
@@ -88,32 +140,6 @@ INSERT INTO `commande` (`id`, `dateCommande`, `idClient`) VALUES
 ('1101461660', '2024-09-01', 1),
 ('1101461665', '2024-09-01', 2),
 ('1101461666', '2026-03-16', 3);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `client`
---
-
-DROP TABLE IF EXISTS `client`;
-CREATE TABLE IF NOT EXISTS `client` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nomPrenom` varchar(50) NOT NULL,
-  `adresseRue` varchar(50) DEFAULT NULL,
-  `cp` char(5) DEFAULT NULL,
-  `ville` varchar(50) DEFAULT NULL,
-  `mail` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
---
--- Déchargement des données de la table `client`
---
-
-INSERT INTO `client` (`id`, `nomPrenom`, `adresseRue`, `cp`, `ville`, `mail`) VALUES
-(1, 'Dupont Jacques', '12, rue haute', '75001', 'Paris', 'dupont@wanadoo.fr'),
-(2, 'Durant Yves', '23, rue des ombres', '75012', 'Paris', 'durant@free.fr'),
-(3, 'thomas', 'jsp rue des marguoulette', '60000', 'orléans', 'patrique@proton.com');
 
 -- --------------------------------------------------------
 
@@ -242,6 +268,13 @@ INSERT INTO `unite` (`id`, `libelle`) VALUES
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `associe`
+--
+ALTER TABLE `associe`
+  ADD CONSTRAINT `fk_associe_produit1` FOREIGN KEY (`idProduit1`) REFERENCES `produit` (`id`),
+  ADD CONSTRAINT `fk_associe_produit2` FOREIGN KEY (`idProduit2`) REFERENCES `produit` (`id`);
 
 --
 -- Contraintes pour la table `commande`

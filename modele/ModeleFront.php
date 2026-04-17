@@ -15,6 +15,8 @@ require_once 'modele/Modele.php';
 class ModeleFront extends Modele{
 
 
+
+
 	/**
 	 * Retourne les info de l'unité en fonction de sont id
 	 *
@@ -44,6 +46,22 @@ class ModeleFront extends Modele{
 		$res = $this->executerRequete($req);
 		$marques = $res->fetchAll(PDO::FETCH_OBJ);
 		return $marques; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
+	public function getMarque($idMarque)
+	{
+		try 
+		{
+	    $req='select nom from marque where id = ? ';
+		$res = $this->executerRequete($req, [$idMarque]);
+		$marque = $res->fetch();
+		return $marque; 
 		} 
 		catch (PDOException $e) 
 		{
@@ -222,6 +240,31 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	public function getProduitsAssocies($idProduit)
+	{
+		try 
+		{
+	    $req='SELECT associe.idProduit2 as id, description, prix, image, idCategorie, nom, marque, stock, contenance, unite
+			FROM associe
+			JOIN produit ON associe.idProduit2 = produit.id
+			WHERE associe.idProduit1 = ?
+			UNION
+			SELECT associe.idProduit1 as id, description, prix, image, idCategorie, nom, marque, stock, contenance, unite
+			FROM associe
+			JOIN produit ON associe.idProduit1 = produit.id
+			WHERE associe.idProduit2 = ?
+		';
+		$res = $this->executerRequete($req, [$idProduit, $idProduit]);
+		$produitsAssocies = $res->fetchAll(PDO::FETCH_OBJ);
+		return $produitsAssocies; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
 /**
  * Retourne les produits concernés par le tableau des idProduits passé en argument (si null retourne tous les produits)
  *
@@ -277,6 +320,22 @@ class ModeleFront extends Modele{
 		{
         print "Erreur !: " . $e->getMessage();
         die();
+		}
+	}
+
+	public function getLesInfosProduit($idProduit)
+	{
+		try 
+		{
+	    $req='select id, nom, description, prix, image, idCategorie, stock, marque from produit where id = ? ';
+		$res = $this->executerRequete($req, [$idProduit]);
+		$produit = $res->fetch(PDO::FETCH_OBJ);
+		return $produit; 
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
 		}
 	}
 

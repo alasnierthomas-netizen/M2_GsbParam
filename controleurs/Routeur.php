@@ -43,6 +43,7 @@ class Routeur{
                 case 'voirCategories' : {$this->ctrlVoirProduits->voirCategories();break;}
                 case 'voirProduits' : {$this->ctrlVoirProduits->voirProduits((isset($_REQUEST['categorie'])) ? $_REQUEST['categorie'] : "CH", (isset($_REQUEST['msgErreurs'])) ? $_REQUEST['msgErreurs'] : null);break;}
                 case 'nosProduits' : {$this->ctrlVoirProduits->voirProduits();break;}
+                case 'voirProduitDetail' : {$this->ctrlVoirProduits->voirProduitDetail($_REQUEST['produit']);break;}
             }; break;
         case 'gererPanier' :
             switch ($action)
