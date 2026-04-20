@@ -126,6 +126,14 @@ class ModeleBack extends ModeleFront{
         return $commandes;
     }
 
+    public function getContenir(): array{
+        $res = $this->executerRequete("SELECT contenir.idCommande, produit.nom, contenir.qt
+                FROM contenir
+                JOIN produit ON contenir.idProduit = produit.id
+                ORDER BY idCommande, idProduit");
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function supprimerCommande(string $idCommande): void{
         $this->executerRequete("DELETE FROM contenir WHERE idCommande = ?", [$idCommande]);
         $this->executerRequete("DELETE FROM commande WHERE id = ?", [$idCommande]);

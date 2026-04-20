@@ -301,6 +301,7 @@ class ControleurAdmin{
     public function voirCommandes(): void{
         if (!empty($_SESSION["admin"])) {
             $commandes = $this->modeleBack->getCommandes();
+            $contenirs = $this->modeleBack->getContenir();
             include_once("vues/v_commandes.php");
         } else {
             header("Location: index.php");

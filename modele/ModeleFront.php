@@ -352,39 +352,25 @@ class ModeleFront extends Modele{
 	 * @param string $mail mail du client
 	 * @param array $lesIdProduit tableau contenant les id des produits commandés	 
 	*/
-	public function creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduit )
+	public function creerCommande($nom,$rue,$cp,$ville,$mail, $lesIdProduit ) #TODO
 	{
 		try 
 		{
-        // on récupère le dernier id de commande
-		$req = 'select max(id) as maxi from commande';
-		$res = $this->executerRequete($req);
-		$laLigne = $res->fetch();
-		$maxi = $laLigne['maxi'] ;// on place le dernier id de commande dans $maxi
-		$idCommande = $maxi+1; // on augmente le dernier id de commande de 1 pour avoir le nouvel idCommande
+		$idCommande = $this->creerFreeIdCommande(); // on augmente le dernier id de commande de 1 pour avoir le nouvel idCommande
 		$date = date('Y/m/d'); // récupération de la date système
-		$req = "insert into commande values (?, ?, ?, ?, ?, ?, ?)";
-		$res = $this->executerRequete($req, [$idCommande, $date, $nom, $rue, $cp, $ville, $mail]);
-		// insertion produits commandés
-		$numericIndex = array_keys($lesIdProduit) === range(0, count($lesIdProduit)-1);
+		$idclient = $this->existeClient($nom, $rue, $cp, $ville, $mail);
+		if ($idclient == false)
+		{
+			$idclient = $this->creerClient($this->creerIdClient(),$nom, $rue, $cp, $ville, $mail); // création du client et récupération de son id
+		}
+		$req = "insert into commande values (?, ?, ?)";
+		$res = $this->executerRequete($req, [$idCommande, $date, $idclient]); 
+
 		foreach($lesIdProduit as $cle => $valeur)
 		{
-			if($numericIndex)
-			{
-				$unIdProduit = $valeur;
-				$req = "insert into contenir values (?, ?)";
-				$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
-			}
-			else
-			{
-				$unIdProduit = $cle;
-				$quantite = (int)$valeur;
-				for($i=0; $i<$quantite; $i++)
-				{
-					$req = "insert into contenir values (?, ?)";
-					$res = $this->executerRequete($req, [$idCommande, $unIdProduit]);
-				}
-			}
+			$req = "insert into contenir values (?, ?, ?)";
+			$res = $this->executerRequete($req, [$idCommande, $cle, $valeur]);
+
 		}
 		return $res;
 		}
@@ -395,5 +381,69 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	public function existeClient($nom, $rue, $cp, $ville, $mail)
+	{
+		try 
+		{
+	    $req='select id from client where nomPrenom = ? and adresseRue = ? and cp = ? and ville = ? and mail = ?';
+		$res = $this->executerRequete($req, [$nom, $rue, $cp, $ville, $mail]);
+		$client = $res->fetch();
+		return ($client === false) ? false : $client[0];
+		} 
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
+	public function creerIdClient()
+	{
+		try 
+		{
+			$req = 'select max(id) as maxi from client';
+			$res = $this->executerRequete($req);
+			$laLigne = $res->fetch();
+			$maxi = $laLigne['maxi'] ;// on place le dernier id de client dans $maxi
+			return (string)($maxi+1); // on augmente le dernier id de client de 1 pour avoir le nouvel idClient
+		}
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
+	public function creerClient($idClient, $nom, $rue, $cp, $ville, $mail)
+	{
+		try 
+		{
+			$req = 'insert into client values (?, ?, ?, ?, ?, ?)';
+			$res = $this->executerRequete($req, [$idClient, $nom, $rue, $cp, $ville, $mail]);
+			return $idClient; 
+		}
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
+
+	public function creerFreeIdCommande(): string
+	{
+		try 
+		{
+			$req = 'select max(id) as maxi from commande';
+			$res = $this->executerRequete($req);
+			$laLigne = $res->fetch();
+			$maxi = $laLigne['maxi'] ;// on place le dernier id de commande dans $maxi
+			return (string)($maxi+1); // on augmente le dernier id de commande de 1 pour avoir le nouvel idCommande
+		}
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
 }
 ?>
