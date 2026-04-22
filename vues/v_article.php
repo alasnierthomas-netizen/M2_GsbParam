@@ -8,6 +8,7 @@
  * $imagePrincipale: chemin de l'image de l'action principale
  * $titleAction: titre de l'action principale
  * $altAction: texte alternatif de l'image de l'action principale
+ * $boutonsSuplémentaires (optionnel): liste de tableau associatif avec 'lien', 'image', 'title', 'alt' pour un bouton d'action supplémentaire (pour le moment acsessible uniquement aux admins)
  */
 ?>
 <div id="card" class="mb-3" style="min-width:230px;">
@@ -27,6 +28,11 @@
 			<a href="index.php?uc=admin&produit=<?= $article->id ?>&action=changeOrAddProduit">
 				<img src="assets/images/paramètres.png" title="modifier produit" alt="Modifier produit">
 			</a>
+			<?php if (!empty($boutonsSupplémentaires)): ?>
+				<a href="<?php echo $boutonsSupplémentaires['lien']; ?>">
+					<img src="<?= $boutonsSupplémentaires['image'] ?>" title="<?= $boutonsSupplémentaires['title'] ?>" alt="<?= $boutonsSupplémentaires['alt'] ?>">
+				</a>
+			<?php endif; ?>
 		<?php endif; ?>
 	</div>
 </div>

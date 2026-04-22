@@ -138,4 +138,18 @@ class ModeleBack extends ModeleFront{
         $this->executerRequete("DELETE FROM contenir WHERE idCommande = ?", [$idCommande]);
         $this->executerRequete("DELETE FROM commande WHERE id = ?", [$idCommande]);
     }
+
+    public function supprimerAssociation(string $idProduit, string $idAssocier): void
+    {
+        try 
+		{
+	    $req='DELETE FROM associe WHERE (associe.idProduit1 = :idProduit AND associe.idProduit2 = :idAssocier) OR (associe.idProduit1 = :idAssocier AND associe.idProduit2 = :idProduit)';
+		$res = $this->executerRequete($req, ['idProduit' => $idProduit, 'idAssocier' => $idAssocier]);
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+    }
 }

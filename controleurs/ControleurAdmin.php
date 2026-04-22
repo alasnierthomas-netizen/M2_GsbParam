@@ -316,4 +316,14 @@ class ControleurAdmin{
             header("Location: index.php");
         }
     }
+
+    public function supprimerAssociation(string $idProduit, string $idAssocier): void
+    {
+        if (!empty($_SESSION["admin"])) {
+            $this->modeleBack->supprimerAssociation($idProduit, $idAssocier);
+            header("Location: index.php?uc=voirProduits&action=voirProduitDetail&produit=".$idAssocier);
+        } else {
+            header("Location: index.php");
+        }
+    }
 }

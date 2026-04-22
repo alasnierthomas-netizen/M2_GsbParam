@@ -38,6 +38,12 @@ $produitCategorie = htmlspecialchars($produit->idCategorie ?? '');
         </div>
     </div>
     <?php 
+        $boutonsSupplémentaires = [
+            'lien' => "index.php?uc=admin&action=supprimerAssociation&idAssocier=".$produitId,
+            'image' => "assets/images/lien_brise.png",
+            'title' => "Supprimer association",
+            'alt' => "Supprimer association"
+        ];
 		include_once("v_produits.php");
 	?>
 </div>

@@ -1,6 +1,10 @@
 <div id="produits">
 <?php
 // parcours du tableau contenant les produits à afficher
+if (!empty($boutonsSupplémentaires))
+{
+	$lienSansId = $boutonsSupplémentaires['lien'];
+}
 foreach( $lesProduits as $unProduit) 
 { 	
 	$article = $unProduit;
@@ -8,6 +12,10 @@ foreach( $lesProduits as $unProduit)
 	$imagePrincipale = "assets/images/mettrepanier.png";
 	$titleAction = "Ajouter au panier";
 	$altAction = "Mettre au panier";
+	if (!empty($boutonsSupplémentaires))
+	{
+		$boutonsSupplémentaires['lien'] = $lienSansId."&idProduit=".$article->id;
+	}
 	include('v_article.php');
 }
 ?>
