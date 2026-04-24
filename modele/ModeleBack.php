@@ -152,4 +152,18 @@ class ModeleBack extends ModeleFront{
         die();
 		}
     }
+
+    public function ajouterAssociation(string $idProduit, string $idAssocier): void
+    {
+        try 
+		{
+	    $req='INSERT INTO associe (idProduit1, idProduit2) VALUES (?, ?)';
+		$res = $this->executerRequete($req, [$idProduit, $idAssocier]);
+		} 
+		catch (PDOException $e) 
+		{
+        print "Erreur !: " . $e->getMessage();
+        die();
+		}
+    }
 }

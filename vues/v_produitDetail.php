@@ -37,7 +37,13 @@ $produitCategorie = htmlspecialchars($produit->idCategorie ?? '');
             </div>
         </div>
     </div>
-    <?php 
+    <?php if (!empty($_SESSION["admin"])): ?>
+        <div class="card-footer bg-white border-0 d-flex flex-wrap gap-2">
+            <a href="index.php?uc=admin&action=listAssociations&idProduit=<?= $produitId ?>" class="btn btn-primary">Ajouter une association</a>
+        </div>
+    <?php endif; ?>
+
+        <?php
         $boutonsSupplémentaires = [
             'lien' => "index.php?uc=admin&action=supprimerAssociation&idAssocier=".$produitId,
             'image' => "assets/images/lien_brise.png",

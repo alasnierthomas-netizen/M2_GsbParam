@@ -77,7 +77,9 @@ class Routeur{
                     case "confirmSupprimerCategorie": {$this->ctrlAdmin->supprimerCategorie($_REQUEST["idCategorie"]); break;}
                     case "voirCommandes": {$this->ctrlAdmin->voirCommandes(); break;}
                     case "supprimerCommande": {$this->ctrlAdmin->supprimerCommande($_REQUEST["idCommande"]); break;}
-                    case "supprimerAssociation": {$this->ctrlAdmin->supprimerAssociation($_REQUEST['idProduit'], $_REQUEST['idAssocier']); break;} # TODO faire la même mais pour rajouter une association entre produits
+                    case "supprimerAssociation": {$this->ctrlAdmin->supprimerAssociation($_REQUEST['idProduit'], $_REQUEST['idAssocier']); break;}
+                    case "ajouterAssociation": {$this->ctrlAdmin->ajouterAssociation($_REQUEST['idProduit'], $_REQUEST['idAssocier']); break;}
+                    case "listAssociations": {$this->ctrlAdmin->listAssociations($_REQUEST['idProduit']); break;}
                 }
             }
 		break;

@@ -445,5 +445,20 @@ class ModeleFront extends Modele{
 		die();
 		}
 	}
+
+	public function associationExiste(String $idProduit, string $idAssocier): bool
+	{
+		try 
+		{
+			$req = 'SELECT * FROM associe WHERE (associe.idProduit1 = :idProduit AND associe.idProduit2 = :idAssocier) OR (associe.idProduit1 = :idAssocier AND associe.idProduit2 = :idProduit)';
+			$res = $this->executerRequete($req, ['idProduit' => $idProduit, 'idAssocier' => $idAssocier]);
+			return ($res->fetch() === false)? false : true;
+		}
+		catch (PDOException $e) 
+		{
+		print "Erreur !: " . $e->getMessage();
+		die();
+		}
+	}
 }
 ?>

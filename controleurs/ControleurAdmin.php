@@ -326,4 +326,38 @@ class ControleurAdmin{
             header("Location: index.php");
         }
     }
+
+    public function ajouterAssociation(string $idProduit, string $idAssocier): void
+    {
+        if (!empty($_SESSION["admin"])) {
+            if ($this->modeleBack->associationExiste($idProduit, $idAssocier)) #deja associer
+            {
+                $_SESSION['error'] = "L'association entre ces produits existe déjà.";
+                header("Location: index.php?uc=admin&idProduit="."$idAssocier"."&idAssocier=".$idProduit."&action=listAssociations");
+            }
+            else
+            {
+                $this->modeleBack->ajouterAssociation($idProduit, $idAssocier);
+                header("Location: index.php?uc=voirProduits&action=voirProduitDetail&produit=".$idAssocier);
+            }
+        } else {
+            header("Location: index.php");
+        }
+    }
+
+    public function listAssociations(string $idProduit): void
+    {
+        if (!empty($_SESSION["admin"])) {
+            $lesProduits = $this->modeleBack->getLesProduits();
+            $produit = $this->modeleBack->getProduits($idProduit);
+            if (isset($_SESSION['error'])) {
+                $msgErreurs = [$_SESSION['error']];
+                include_once("vues/v_erreurs.php");
+                unset($_SESSION['error']);
+            }
+            include_once("vues/v_listAssociations.php");
+        } else {
+            header("Location: index.php");
+        }
+    }
 }
