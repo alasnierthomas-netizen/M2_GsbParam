@@ -160,7 +160,7 @@ class ControleurAdmin{
                 $this->modeleBack->creerProduit(
                     $_REQUEST["description"],
                     $_REQUEST["prix"],
-                    $imageName,
+                    (empty($imageName)) ? "" : $imageName,
                     $_REQUEST["idCategorie"],
                     $_REQUEST["nom"],
                     $_REQUEST["marque"],
@@ -175,7 +175,7 @@ class ControleurAdmin{
                     $_REQUEST["idProduit"],
                     $_REQUEST["description"],
                     $_REQUEST["prix"],
-                    $imageName,
+                    (empty($imageName)) ? "" : $imageName,
                     $_REQUEST["idCategorie"],
                     $_REQUEST["nom"],
                     $_REQUEST["marque"],

@@ -221,7 +221,7 @@ class ModeleFront extends Modele{
  * catégorie passée en argument
  * 
  * @param string $id  l'id du produits
- * @return $produit information du produit
+ * @return array $produit information du produit
 */
 
 	public function getProduits($id)

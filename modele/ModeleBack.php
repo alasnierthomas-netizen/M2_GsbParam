@@ -28,7 +28,7 @@ class ModeleBack extends ModeleFront{
      * @param string $password le mdp de l'admin
 	 * @return int | false l'Id de l'admin ou false
 	*/
-    public function getAdmin(string $login, string $password) : int | false
+    public function getAdmin(string $login, string $password)
     {
         $req = $this->executerRequete("SELECT id, mdp FROM administrateur WHERE nom = ?", [$login]);
         $rep = $req->fetch();
@@ -68,7 +68,7 @@ class ModeleBack extends ModeleFront{
   
     }
 
-    public function editProduit(string $id, string $description, float $prix, string|null $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
+    public function editProduit(string $id, string $description, float $prix, string $image, string $idCategorie, string $nom, int $marque, int $stock, int $contenance, string $unite) 
     {
         if (!empty($image)) {
             $res = $this->executerRequete(
@@ -84,6 +84,7 @@ class ModeleBack extends ModeleFront{
     }
 
     public function supprimerProduit(string $idProduit): void{
+        $this->executerRequete("DELETE FROM associe WHERE idProduit1 = ? OR idProduit2 = ?", [$idProduit, $idProduit]);
         $this->executerRequete("DELETE FROM produit WHERE id = ?", [$idProduit]);
     }
 
