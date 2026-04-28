@@ -191,8 +191,15 @@ class ControleurAdmin{
     }
     public function supprimerProduit(string $idProduit, string $idCategorie): void{
         if (!empty($_SESSION["admin"])) {
-            $this->modeleBack->supprimerProduit($idProduit);
-            header("Location: index.php?uc=voirProduits&action=voirProduits&categorie=".$idCategorie);
+            $msgErreurs = $this->modeleBack->supprimerProduit($idProduit);
+            if ($msgErreurs === true) {
+                header("Location: index.php?uc=voirProduits&action=voirProduits&categorie=".$idCategorie);
+            }
+            else {
+                $msgErreurs = ["Impossible de supprimer ce produit car il est présent dans au moins une commande."];
+                include_once("vues/v_erreurs.php");
+                include_once("vues/v_accueil.html");
+            }
         } else {
             header("Location: index.php");
         }

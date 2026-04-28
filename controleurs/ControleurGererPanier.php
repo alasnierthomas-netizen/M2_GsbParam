@@ -97,7 +97,7 @@ class ControleurGererPanier{
 	 * retir le produit à la variable de session dans le cas où
 	 * le produit a été trouvé
 	 
-	* @param Produit $idProduit Le produit à suprimer du panier 
+	* @param string $idProduit Le produit à suprimer du panier 
 	*/
 	function suprimerDuPanier($idProduit)
 	{

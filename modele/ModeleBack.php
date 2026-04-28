@@ -83,9 +83,28 @@ class ModeleBack extends ModeleFront{
         }
     }
 
-    public function supprimerProduit(string $idProduit): void{
-        $this->executerRequete("DELETE FROM associe WHERE idProduit1 = ? OR idProduit2 = ?", [$idProduit, $idProduit]);
-        $this->executerRequete("DELETE FROM produit WHERE id = ?", [$idProduit]);
+    public function supprimerProduit(string $idProduit){
+        if($this->contenir($idProduit))
+        {
+            $msgErreurs[] = "Impossible de supprimer le produit $idProduit car il est présent dans au moins une commande.";
+            include("vues/v_erreurs.php");
+            return $msgErreurs;
+        }
+        else
+        {        
+            $this->executerRequete("DELETE FROM associe WHERE idProduit1 = ? OR idProduit2 = ?", [$idProduit, $idProduit]);
+            $_SESSION['produits'] = array_diff_key($_SESSION['produits'], [$idProduit => ""]);
+            $this->executerRequete("DELETE FROM produit WHERE id = ?", [$idProduit]);
+            return true;
+        }
+
+    }
+
+    public function contenir(string $idProduit): bool
+    {
+        $res = $this->executerRequete("SELECT COUNT(*) AS count FROM contenir WHERE idProduit = ?", [$idProduit]);
+        $count = $res->fetch(PDO::FETCH_ASSOC)['count'];
+        return $count > 0;
     }
 
     public function getAbreviationsCategorie(string $libelle)
