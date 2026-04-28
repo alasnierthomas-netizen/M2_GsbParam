@@ -32,8 +32,14 @@ else
 return $result;
 }
 /**
- * getBdd fournit un objet Pdo $bdd
- * pour effectuer ensuite des requêtes
+ * getBdd fournit un objet PDO pour la connexion à la base de données
+ *
+ * Cette méthode établit une connexion à la base de données MySQL en utilisant
+ * les paramètres de configuration définis dans le fichier config/.config.php.
+ * Elle utilise le pattern Singleton pour ne créer qu'une seule instance de PDO.
+ *
+ * @return PDO un objet de connexion à la base de données
+ * @throws PDOException si la connexion échoue
 */
 private function getBdd() {
     require_once('config/.config.php');

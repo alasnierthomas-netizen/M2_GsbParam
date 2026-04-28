@@ -38,6 +38,11 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne toutes les marques disponibles
+	 *
+	 * @return array $marques un tableau d'objets contenant l'id et le nom de chaque marque
+	*/
 	public function getMarques()
 	{
 		try 
@@ -54,6 +59,12 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne le nom d'une marque spécifique
+	 *
+	 * @param int $idMarque l'id de la marque
+	 * @return array|false le nom de la marque ou false si non trouvé
+	*/
 	public function getMarque($idMarque)
 	{
 		try 
@@ -113,6 +124,12 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne les informations d'une catégorie spécifique
+	 *
+	 * @param string $id l'id de la catégorie
+	 * @return array|false les informations de la catégorie ou false si non trouvée
+	*/
 	public function getCategorie($id)
 	{
 		try 
@@ -200,6 +217,12 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne le nombre de produits dans une catégorie donnée
+	 *
+	 * @param string $idCategorie l'id de la catégorie
+	 * @return int le nombre de produits dans la catégorie
+	*/
 	public function getQtProduitsDeCategorie($idCategorie): int
 	{
 		try
@@ -224,6 +247,12 @@ class ModeleFront extends Modele{
  * @return array $produit information du produit
 */
 
+	/**
+	 * Retourne toutes les informations d'un produit spécifique
+	 *
+	 * @param string $id l'id du produit
+	 * @return array|false les informations du produit ou false si non trouvé
+	*/
 	public function getProduits($id)
 	{
 		try 
@@ -240,6 +269,14 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne les produits associés à un produit donné
+	 *
+	 * Un produit associé est un produit lié via la table associe (relation bidirectionnelle)
+	 *
+	 * @param string $idProduit l'id du produit dont on veut les associés
+	 * @return array $produitsAssocies un tableau d'objets des produits associés
+	*/
 	public function getProduitsAssocies($idProduit)
 	{
 		try 
@@ -323,6 +360,12 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Retourne les informations détaillées d'un produit
+	 *
+	 * @param string $idProduit l'id du produit
+	 * @return object|false les informations du produit ou false si non trouvé
+	*/
 	public function getLesInfosProduit($idProduit)
 	{
 		try 
@@ -381,6 +424,18 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Vérifie si un client existe déjà dans la base de données
+	 *
+	 * Recherche un client par ses coordonnées complètes
+	 *
+	 * @param string $nom le nom du client
+	 * @param string $rue la rue du client
+	 * @param string $cp le code postal du client
+	 * @param string $ville la ville du client
+	 * @param string $mail l'email du client
+	 * @return int|false l'id du client s'il existe, false sinon
+	*/
 	public function existeClient($nom, $rue, $cp, $ville, $mail)
 	{
 		try 
@@ -397,6 +452,13 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Crée un nouvel identifiant pour un client
+	 *
+	 * Génère un id unique en incrémentant le maximum existant dans la table client
+	 *
+	 * @return string le nouvel id de client
+	*/
 	public function creerIdClient()
 	{
 		try 
@@ -414,6 +476,17 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Crée un nouveau client dans la base de données
+	 *
+	 * @param string $idClient l'id du client à créer
+	 * @param string $nom le nom du client
+	 * @param string $rue la rue du client
+	 * @param string $cp le code postal du client
+	 * @param string $ville la ville du client
+	 * @param string $mail l'email du client
+	 * @return string l'id du client créé
+	*/
 	public function creerClient($idClient, $nom, $rue, $cp, $ville, $mail)
 	{
 		try 
@@ -429,6 +502,13 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Crée un nouvel identifiant pour une commande
+	 *
+	 * Génère un id unique en incrémentant le maximum existant dans la table commande
+	 *
+	 * @return string le nouvel id de commande
+	*/
 	public function creerFreeIdCommande(): string
 	{
 		try 
@@ -446,6 +526,15 @@ class ModeleFront extends Modele{
 		}
 	}
 
+	/**
+	 * Vérifie si une association entre deux produits existe
+	 *
+	 * Vérifie si les deux produits sont déjà associés dans la table associe
+	 *
+	 * @param string $idProduit l'id du premier produit
+	 * @param string $idAssocier l'id du second produit à vérifier
+	 * @return bool true si l'association existe, false sinon
+	*/
 	public function associationExiste(String $idProduit, string $idAssocier): bool
 	{
 		try 
