@@ -128,9 +128,9 @@ class ModeleBack extends ModeleFront{
         die();
 		}
     }
-    public function editCategorie(string $oldId, string $libelle, string $newId): void
+    public function editCategorie(string $oldId, string $libelle): void
     {
-        $this->executerRequete("UPDATE categorie SET libelle = ?, id = ? WHERE id = ?", [$libelle, $newId, $oldId]);
+        $this->executerRequete("UPDATE categorie SET libelle = ? WHERE id = ?", [$libelle, $oldId]);
     }
 
     public function supprimerCategorie(string $idCategorie): void{

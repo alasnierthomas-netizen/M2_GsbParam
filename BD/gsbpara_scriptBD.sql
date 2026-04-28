@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 INSERT INTO `categorie` (`id`, `libelle`) VALUES
 ('CH', 'Cheveux'),
 ('FO', 'Forme'),
-('PS', 'Protection Solaire');
+('PR', 'Protection Solaire');
 
 -- --------------------------------------------------------
 
@@ -233,13 +233,13 @@ INSERT INTO `produit` (`id`, `description`, `prix`, `image`, `idCategorie`, `nom
 ('f05', 'Microlife pèse-personne électronique weegschaal', 63.00, 'assets/images/microlife-pese-personne-electronique-weegschaal-ws80.jpg', 'FO', 'Microlife pèse-personne ', 3, 7, 100, 1),
 ('f06', 'Melapi Miel Thym Liquide 500g', 6.50, 'assets/images/melapi-miel-thym-liquide-500g.jpg', 'FO', 'Melapi Miel Thym', 1, 42, 100, 1),
 ('f07', 'Meli Meliflor Pollen 200g', 8.60, 'assets/images/melapi-pollen-250g.jpg', 'FO', 'Meli Meliflor', 2, 89, 100, 1),
-('p01', 'Avène solaire Spray très haute protection', 22.00, 'assets/images/avene-solaire-spray-tres-haute-protection-spf50200ml.png', 'PS', 'Avène solaire Spray', 2, 18, 100, 1),
-('p02', 'Mustela Solaire Lait très haute Protection', 17.50, 'assets/images/mustela-solaire-lait-tres-haute-protection-spf50-100ml.jpg', 'PS', 'Mustela Solaire Lait ', 1, 25, 100, 1),
-('p03', 'Isdin Eryfotona aAK fluid', 29.00, 'assets/images/isdin-eryfotona-aak-fluid-100-50ml.jpg', 'PS', 'Isdin Eryfotona', 4, 71, 100, 1),
-('p04', 'La Roche Posay Anthélios 50+ Brume Visage', 8.75, 'assets/images/la-roche-posay-anthelios-50-brume-visage-toucher-sec-75ml.png', 'PS', 'La Roche Posay ', 3, 82, 100, 1),
-('p05', 'Nuxe Sun Huile Lactée Capillaire Protectrice', 15.00, 'assets/images/nuxe-sun-huile-lactee-capillaire-protectrice-100ml.png', 'PS', 'Nuxe Sun Huile', 3, 95, 100, 1),
-('p06', 'Uriage Bariésun stick lèvres SPF30 4g', 5.65, 'assets/images/uriage-bariesun-stick-levres-spf30-4g.jpg', 'PS', 'Uriage Bariésun stick', 5, 32, 100, 1),
-('p07', 'Bioderma Cicabio creme SPF50+ 30ml', 13.70, 'assets/images/bioderma-cicabio-creme-spf50-30ml.png', 'PS', 'Bioderma Cicabio ', 4, 73, 100, 1);
+('p01', 'Avène solaire Spray très haute protection', 22.00, 'assets/images/avene-solaire-spray-tres-haute-protection-spf50200ml.png', 'PR', 'Avène solaire Spray', 2, 18, 100, 1),
+('p02', 'Mustela Solaire Lait très haute Protection', 17.50, 'assets/images/mustela-solaire-lait-tres-haute-protection-spf50-100ml.jpg', 'PR', 'Mustela Solaire Lait ', 1, 25, 100, 1),
+('p03', 'Isdin Eryfotona aAK fluid', 29.00, 'assets/images/isdin-eryfotona-aak-fluid-100-50ml.jpg', 'PR', 'Isdin Eryfotona', 4, 71, 100, 1),
+('p04', 'La Roche Posay Anthélios 50+ Brume Visage', 8.75, 'assets/images/la-roche-posay-anthelios-50-brume-visage-toucher-sec-75ml.png', 'PR', 'La Roche Posay ', 3, 82, 100, 1),
+('p05', 'Nuxe Sun Huile Lactée Capillaire Protectrice', 15.00, 'assets/images/nuxe-sun-huile-lactee-capillaire-protectrice-100ml.png', 'PR', 'Nuxe Sun Huile', 3, 95, 100, 1),
+('p06', 'Uriage Bariésun stick lèvres SPF30 4g', 5.65, 'assets/images/uriage-bariesun-stick-levres-spf30-4g.jpg', 'PR', 'Uriage Bariésun stick', 5, 32, 100, 1),
+('p07', 'Bioderma Cicabio creme SPF50+ 30ml', 13.70, 'assets/images/bioderma-cicabio-creme-spf50-30ml.png', 'PR', 'Bioderma Cicabio ', 4, 73, 100, 1);
 
 -- --------------------------------------------------------
 

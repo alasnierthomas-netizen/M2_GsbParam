@@ -249,7 +249,16 @@ class ControleurAdmin{
                 include_once("vues/v_editeCategorie.php");
                 return;
             }
-            $this->modeleBack->editCategorie($_REQUEST["idCategorie"], $_REQUEST["libelle"], $id);
+            if($id != $_REQUEST["idCategorie"])
+            {
+                $msgErreurs = ["tant que la catégorie existe, vous ne pouvez pas changer les deux premières lettres du libellé, merci d'écrire une nouvelle catégorie si vous voulez changer les deux premières lettres du libellé."];
+                include_once("vues/v_erreurs.php");
+                $libelle = (!empty($_REQUEST["libelle"])) ? $_REQUEST["libelle"] : "";
+                $id = (!empty($_REQUEST["idCategorie"])) ? $_REQUEST["idCategorie"] : "";
+                include_once("vues/v_editeCategorie.php");
+                return;
+            }
+            $this->modeleBack->editCategorie($_REQUEST["idCategorie"], $_REQUEST["libelle"]);
             header("Location: index.php?uc=voirProduits&action=voirProduits&categorie=".$_REQUEST["idCategorie"]);
         } else {
             header("Location: index.php");
